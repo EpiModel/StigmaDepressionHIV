@@ -8,15 +8,22 @@ renv::init(bare = TRUE)
 # restart R if it has not been done automatically
 
 source("R/shared_variables.R", local = TRUE)
-
+EMHIVp_branch <- "StigmaDepressionHIV_real"
 # This code installs the packages only available on GitHub (not CRAN ones)
 renv::install(c(
   paste0("EpiModel/EpiModelHIV-p@", EMHIVp_branch),
   "EpiModel/EpiModelHPC"
 ))
 
+
 # This code finds and install the libraries used by the project (CRAN version)
 renv::hydrate()
+
+
+remotes::install_github(c("EpiModel/ARTnetData",
+                          "EpiModel/ARTnet"))
+
+
 
 # Snapshot the list of installed packages to the `renv.lock` file
 renv::snapshot()
