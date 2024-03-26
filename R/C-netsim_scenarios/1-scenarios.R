@@ -23,7 +23,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 
 # Setup (model setup) ----------------------------------------------------------------------
 #get epistats, netstats, param, init & time settings
-prep_start <- 2 * year_steps
+prep_start <- 0.5 * year_steps
 source("R/netsim_settings.R", local = TRUE)
 est      <- readRDS("data/intermediate/estimates/netest-local.rds")
 
@@ -38,9 +38,27 @@ param <- param.net(
 
   #newly added
   sexstigma.memdist = c(0.119, 0.133, 0.336, 0.412),
+
   mddcoef.stigma = c(5.947530777, 2.348486854, 2.687909524, 1),
   mddcoef.race = c(1.066135463, 1.446118104, 1),
-  mddcoef.hiv = c(1, 1.086847192)
+  mddcoef.hiv = c(1, 1.086847192),
+
+  mde.start.prob = c(0.33, 0.47),                  #mde start prob of 33% in hiv- and 47% in hiv+
+  mde.symsevgrp.dist = c(0.105, 0.386, 0.380, 0.129),
+  mde.sevimp.symgrp.dist = c(0.196, 0.415, 0.773, 0.90),
+  mde.spontres.int  = c(15.3, 13.8, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
+  mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
+
+
+  mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
+  mdd.diag.prep.prob = 0,
+
+  mdd.txinit.prob = c(0.397, 0.336, 0.540),
+  mde.txremiss.prob = 0.65,
+  mdd.txltfu.prob = 0.145,
+
+  mdd.suitry.prob = 0.068,
+  mdd.suicompl.prob = 0.0322
 
 )
 #print(param)
@@ -48,7 +66,7 @@ param <- param.net(
 #control
 pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
 control <- control_msm(
-  nsteps = prep_start + year_steps * 1
+  nsteps = prep_start + year_steps * 5.5
 ); #print(control)
 
 
@@ -56,12 +74,24 @@ control <- control_msm(
 # Epidemic simulation (1 sim interactive) ------------------------------------------------
 #debug(initialize_msm)
 #debug(arrival_msm)
-#debug(mdd_msm)
+#debug(mddassign_msm)
+#debug(mde_msm)
+#debug(mddcare_msm)
+#debug(mddsuitry_msm)
 sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
-#undebug(mdd_msm)
+#undebug(mddassign_msm)
+#undebug(mde_msm)
+#undebug(mddcare_msm)
+#undebug(mddsuitry_msm)
 
+
+#convert sim object to df
+df <- as.data.frame(sim)
+
+output_dir <- "C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/output/local"
+saveRDS(df, paste0(output_dir,"/df.rds"))
 
 
 #Examine epi measures in sim object
@@ -87,72 +117,6 @@ plot(sim, y = c("mdd.prpall", "mdd.prphiv1", "mdd.prphiv0"))
 
 legend(x=1, y=0.20, legend=c("all", "hiv pos", "hiv neg"),
        col=c("black","red", "blue"), lty=1:3, cex=0.8)
-
-
-#convert to df
-df <- as.data.frame(sim)
-
-output_dir <- "C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/output/local"
-saveRDS(df, paste0(output_dir,"/df.rds"))
-
-
-
-
-
-#Old script
-# #param
-# param <- param.net(
-#   data.frame.params = readr::read_csv("data/input/params.csv"),
-#   netstats          = netstats,
-#   epistats          = epistats,
-#   prep.start        = prep_start,
-#   riskh.start       = prep_start - 53,
-#
-#   #missing params in csv DOC
-#   #sti epi
-#   gc.ntx.int = 16.8,
-#   gc.tx.int = 1.4,
-#   ct.ntx.int = 32,
-#   ct.tx.int = 1.4,
-#
-#   # STI Screening
-#   sti.screening.dist = "stochastic",
-#   gc.screen.hivneg.rate = 1 / 123,
-#   gc.screen.hivpos.rate = 1 / 67,
-#   ct.screen.hivneg.rate = 1 / 123,
-#   ct.screen.hivpos.rate = 1 / 67,
-#   sti.screen.prep.rate = 1 / 13,
-#   sti.screen.prep.start = 1,
-#   sti.screen.rect.hivneg.prob = 0.48,
-#   sti.screen.rect.hivpos.prob = 0.63,
-#   sti.screen.rect.prep.prob = 1,
-#   gc.dx.window = 0,
-#   gc.dx.threshold = Inf,
-#   ct.dx.window = 0,
-#   ct.dx.threshold = Inf,
-#
-#   #PrEP
-#   sti.prep.tx.prob = 1,
-#
-#   sexstigma.mem.dist = c(0.119, 0.133, 0.336, 0.412)
-# )
-# # # See full listing of parameters
-# # # See ?param_msm for definitions
-# # print(param)
-
-
-# # Control settings
-# control <- control_msm(
-#   nsteps = 250,
-#   nsims = 1,
-#   ncores = 1
-# )
-#See listing of modules and other control settings. Module function defaults defined in ?control_msm
-#print(control)
-
-
-
-
 
 
 
