@@ -23,7 +23,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 
 # Setup (model setup) ----------------------------------------------------------------------
 #get epistats, netstats, param, init & time settings
-prep_start <- 0.5 * year_steps
+prep_start <- 1 * year_steps
 source("R/netsim_settings.R", local = TRUE)
 est      <- readRDS("data/intermediate/estimates/netest-local.rds")
 
@@ -58,7 +58,11 @@ param <- param.net(
   mdd.txltfu.prob = 0.145,
 
   mdd.suitry.prob = 0.068,
-  mdd.suicompl.prob = 0.0322
+  mdd.suicompl.prob = 0.0322,
+
+  dep.efx.start = prep_start * 2,
+  ai.rate.mult = c(1, 1.25, 1.75, 0.125),
+  cond.prob.mult = c(1, 2, 8, 4)
 
 )
 #print(param)
@@ -66,7 +70,7 @@ param <- param.net(
 #control
 pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
 control <- control_msm(
-  nsteps = prep_start + year_steps * 5.5
+  nsteps = prep_start + year_steps * 5
 ); #print(control)
 
 
@@ -78,6 +82,8 @@ control <- control_msm(
 #debug(mde_msm)
 #debug(mddcare_msm)
 #debug(mddsuitry_msm)
+#debug(departure_msm)
+#debug(condoms_msm)
 sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
@@ -85,7 +91,8 @@ sim <- netsim(est, param, init, control)
 #undebug(mde_msm)
 #undebug(mddcare_msm)
 #undebug(mddsuitry_msm)
-
+#undebug(departure_msm)
+#undebug(condoms_msm)
 
 #convert sim object to df
 df <- as.data.frame(sim)
