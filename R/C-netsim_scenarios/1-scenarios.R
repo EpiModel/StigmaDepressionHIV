@@ -33,7 +33,7 @@ param <- param.net(
   data.frame.params   = read.csv("data/input/params.csv"),
   netstats            = netstats,
   epistats            = epistats,
-  prep.start          = prep_start,
+  prep.start          = 0, #prep_start,
   riskh.start         = prep_start - year_steps - 1,
 
   #newly added
@@ -49,7 +49,6 @@ param <- param.net(
   mde.spontres.int  = c(15.3, 13.8, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
-
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
   mdd.diag.prep.prob = 0,
 
@@ -60,9 +59,23 @@ param <- param.net(
   mdd.suitry.prob = 0.068,
   mdd.suicompl.prob = 0.0322,
 
-  dep.efx.start = prep_start * 2,
-  ai.rate.mult = c(1, 1.25, 1.75, 0.125),
-  cond.prob.mult = c(1, 2, 8, 4)
+  dep.efxstart.acts = Inf,
+  ai.rate.mult = c(1, 1.125, 1.975, 0.125),
+
+  dep.efxstart.cond = Inf,
+  cond.prob.mult = c(1, 2, 8, 4),
+
+  stigma.efxstart.hivtest = Inf,
+  stigma.hivtest.mult = c(1, 1.022, 0.975, 1),
+
+  dep.efxstart.hivtx = Inf,
+  txinit.rate.mult = c(1, 0.84),
+  #txadh.prob.mult = c(1, 0.61),
+  txhalt.rate.mult = c(1, 1.39),
+
+  stigdep.efxstart.prep = Inf,
+  prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
+  prephalt.prob.mult = c(1, 1.12)
 
 )
 #print(param)
@@ -84,6 +97,12 @@ control <- control_msm(
 #debug(mddsuitry_msm)
 #debug(departure_msm)
 #debug(condoms_msm)
+#debug(acts_msm)
+#debug(hivtest_msm)
+#debug(hivtx_msm)
+#debug(hivtrans_msm)
+#debug(prevalence_msm)
+debug(prep_msm)
 sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
@@ -93,6 +112,12 @@ sim <- netsim(est, param, init, control)
 #undebug(mddsuitry_msm)
 #undebug(departure_msm)
 #undebug(condoms_msm)
+#undebug(acts_msm)
+#undebug(hivtest_msm)
+#undebug(hivtx_msm)
+#undebug(hivtrans_msm)
+#undebug(prevalence_msm)
+
 
 #convert sim object to df
 df <- as.data.frame(sim)
@@ -101,50 +126,27 @@ output_dir <- "C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSP
 saveRDS(df, paste0(output_dir,"/df.rds"))
 
 
-#Examine epi measures in sim object
-print(sim) # Examine the model object output
-
-#plots
-par(mar = c(3, 3, 2, 2), mgp = c(2, 1, 0))
-# plot(sim, y = "i.num", main = "Prevalence")
-# plot(sim, y = "ir100", main = "Incidence")
-plot(sim, y = c("stigma.1.prpall",
-                "stigma.2.prpall",
-                "stigma.3.prpall",
-                "stigma.4.prpall"),
-     main = "sex stigma memberships")
-
-plot(sim, y = c("stigma.1.prphiv1",
-                "stigma.2.prphiv1",
-                "stigma.3.prphiv1",
-                "stigma.4.prphiv1"),
-     main = "sex stigma memberships: hiv pos")
-
-plot(sim, y = c("mdd.prpall", "mdd.prphiv1", "mdd.prphiv0"))
-
-legend(x=1, y=0.20, legend=c("all", "hiv pos", "hiv neg"),
-       col=c("black","red", "blue"), lty=1:3, cex=0.8)
 
 
 
 
-
-
-
+# Epidemic simulation (> 1 sim) ----------------------------------------------------------
 # Define test scenarios
 scenarios_df <- tibble(
-  .scenario.id    = c("scenario_1", "scenario_2"),
+  .scenario.id    = c("sc1_base", "sc2_efxtransmis", "sc2_efxservices", "sc3_efxall"),
   .at             = 1,
-  hiv.test.rate_1 = c(0.004, 0.005),
-  hiv.test.rate_2 = c(0.004, 0.005),
-  hiv.test.rate_3 = c(0.007, 0.008)
+  dep.efxstart.acts     = c(Inf, 52*1, Inf, 52*1),
+  dep.efxstart.cond     = c(Inf, 52*1, Inf, 52*1),
+  stig.efxstart.hivtest = c(Inf, Inf, 52*1, 52*1),
+  dep.efxstart.hivtx    = c(Inf, Inf, 52*1, 52*1),
+  stigdep.efxstart.prep = c(Inf, Inf, 52*1, 52*1)
 )
 
 glimpse(scenarios_df)
 scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 
-# Here 2 scenarios will be used "scenario_1" and "scenario_2".
-# This will generate 6 files (3 per scenarios)
+# Here scenarios are being used (4 scenarios)
+# This will generate 12 files (4 scenarios * 3 sims)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
