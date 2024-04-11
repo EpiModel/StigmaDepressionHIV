@@ -73,7 +73,7 @@
       "RemoteUsername": "EpiModel",
       "RemoteRepo": "EpiModel",
       "RemoteRef": "main",
-      "RemoteSha": "c7622d3b2962dcdc9fdc0a77953ade305076c9e3",
+      "RemoteSha": "5c7201288be888747ab19dddb563bb6e7a96d916",
       "Requirements": [
         "R",
         "RColorBrewer",
@@ -103,18 +103,18 @@
         "tibble",
         "utils"
       ],
-      "Hash": "e161adc5db156a384746a3875e703ff8"
+      "Hash": "6091cc2c36ec6eea0cdeb7a477988b0c"
     },
     "EpiModelHIV": {
       "Package": "EpiModelHIV",
       "Version": "3.0.0",
       "Source": "GitHub",
       "RemoteType": "github",
-      "RemoteHost": "api.github.com",
       "RemoteUsername": "EpiModel",
       "RemoteRepo": "EpiModelHIV-p",
       "RemoteRef": "StigmaDepressionHIV_real",
-      "RemoteSha": "7b1d57538302ced7dc4436bfe57c09b38d5e06d4",
+      "RemoteSha": "0ed1cbe4b21865bbb1e4332cdf8179b0f84b0b3e",
+      "RemoteHost": "api.github.com",
       "Remotes": "github::EpiModel/ARTnet@main, github::EpiModel/ARTnetData@main, github::EpiModel/EpiModel@main",
       "Requirements": [
         "EpiModel",
@@ -129,7 +129,7 @@
         "statnet.common",
         "tergm"
       ],
-      "Hash": "2184e3173d2f968dc7f669962c30674a"
+      "Hash": "fcb65ae3d8f1a2e7d2664cd076a44be6"
     },
     "EpiModelHPC": {
       "Package": "EpiModelHPC",
@@ -702,7 +702,7 @@
     },
     "future.apply": {
       "Package": "future.apply",
-      "Version": "1.11.1",
+      "Version": "1.11.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -712,7 +712,7 @@
         "parallel",
         "utils"
       ],
-      "Hash": "455e00c16ec193c8edcf1b2b522b3288"
+      "Hash": "afe1507511629f44572e6c53b9baeb7c"
     },
     "generics": {
       "Package": "generics",
