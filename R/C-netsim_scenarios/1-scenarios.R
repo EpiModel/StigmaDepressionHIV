@@ -85,7 +85,7 @@ param <- param.net(
 #control
 pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
 control <- control_msm(
-  nsteps = prep_start + year_steps * 5
+  nsteps = prep_start + year_steps * 10
 ); #print(control)
 
 
@@ -136,14 +136,17 @@ control <- control_msm(
 # Epidemic simulation (> 1 sim) ----------------------------------------------------------
 # Define test scenarios
 scenarios_df <- tibble(
-  .scenario.id    = c("sc1_base", "sc2_efxtransmis", "sc3_efxservices", "sc4_efxall"),
+  .scenario.id    = c("sc1_base", "sc2_efxtransmis", "sc3_efxservices",
+                      "sc4_efxall", "sc5_interv1", "sc6_interv2"),
   .at             = 0,
-  dep.efxstart.acts     = c(Inf, 52*1, Inf, 52*1),
-  dep.efxstart.cond     = c(Inf, 52*1, Inf, 52*1),
-  stig.efxstart.hivtest = c(Inf, Inf, 52*1, 52*1),
-  dep.efxstart.hivtx    = c(Inf, Inf, 52*1, 52*1),
-  stigdep.efxstart.prep = c(Inf, Inf, 52*1, 52*1),
-  mhinterv.start        = c(Inf, Inf, 52*1, 52*1)
+  dep.efxstart.acts     = c(Inf, 1,    Inf,  1,    1,    1),
+  dep.efxstart.cond     = c(Inf, 1,    Inf,  1,    1,    1),
+  stig.efxstart.hivtest = c(Inf, Inf,  1,    1,    1,    1),
+  dep.efxstart.hivtx    = c(Inf, Inf,  1,    1,    1,    1),
+  stigdep.efxstart.prep = c(Inf, Inf,  1,    1,    1,    1),
+  mhinterv.start        = c(Inf, Inf,  Inf,  Inf,  1,    1),
+  mddscrnuptk.pstat.prob= c(0,   0,    0,    0,    0.5,  0),
+  mddscrnuptk.pind.prob = c(0,   0,    0,    0,    0,    0.5)
 )
 
 glimpse(scenarios_df)
@@ -154,7 +157,7 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 5,
+  n_rep = 4,
   n_cores = 4,
   output_dir = scenarios_dir,
   save_pattern = "all"
