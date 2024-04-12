@@ -50,8 +50,8 @@ param <- param.net(
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  interv.prepscrn.start = 0,
-  mddscrnuptk.pstat.prob = 1,                    #mdd screening uptake prob among prep starters
+  mh.intervstart.prepscrn = Inf,
+  mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
   mddscrnuptk.pind.prob = 0,                       #mdd screening uptake prob among all with prep indications
 
   mdd.txinit.prob = c(0.397, 0.336, 0.540),
@@ -95,7 +95,7 @@ control <- control_msm(
 #debug(arrival_msm)
 #debug(mddassign_msm)
 #debug(mde_msm)
-debug(mddcare_msm)
+#debug(mddcare_msm)
 #debug(mddsuitry_msm)
 #debug(departure_msm)
 #debug(condoms_msm)
