@@ -50,7 +50,9 @@ param <- param.net(
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  mdd.diag.prep.prob = 0,
+  interv.prepscrn.start = 0,
+  mddscrnuptk.pstat.prob = 1,                    #mdd screening uptake prob among prep starters
+  mddscrnuptk.pind.prob = 0,                       #mdd screening uptake prob among all with prep indications
 
   mdd.txinit.prob = c(0.397, 0.336, 0.540),
   mde.txremiss.prob = 0.65,
@@ -93,7 +95,7 @@ control <- control_msm(
 #debug(arrival_msm)
 #debug(mddassign_msm)
 #debug(mde_msm)
-#debug(mddcare_msm)
+debug(mddcare_msm)
 #debug(mddsuitry_msm)
 #debug(departure_msm)
 #debug(condoms_msm)
@@ -103,7 +105,7 @@ control <- control_msm(
 #debug(hivtrans_msm)
 #debug(prevalence_msm)
 #debug(prep_msm)
-#sim <- netsim(est, param, init, control)
+sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
@@ -151,13 +153,13 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 2,
+  n_rep = 5,
   n_cores = 4,
   output_dir = scenarios_dir,
   save_pattern = "all"
 )
 #fs::dir_ls(sc_test_dir)
-list.files("data/intermediate/scenarios")
+#list.files("data/intermediate/scenarios")
 
 
 # # merge the simulations. Keeping one `tibble` per scenario
