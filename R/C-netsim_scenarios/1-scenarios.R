@@ -50,7 +50,7 @@ param <- param.net(
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  mh.intervstart.prepscrn = Inf,
+  mhinterv.start = Inf,
   mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
   mddscrnuptk.pind.prob = 0,                       #mdd screening uptake prob among all with prep indications
 
@@ -105,7 +105,7 @@ control <- control_msm(
 #debug(hivtrans_msm)
 #debug(prevalence_msm)
 #debug(prep_msm)
-sim <- netsim(est, param, init, control)
+#sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
@@ -142,7 +142,8 @@ scenarios_df <- tibble(
   dep.efxstart.cond     = c(Inf, 52*1, Inf, 52*1),
   stig.efxstart.hivtest = c(Inf, Inf, 52*1, 52*1),
   dep.efxstart.hivtx    = c(Inf, Inf, 52*1, 52*1),
-  stigdep.efxstart.prep = c(Inf, Inf, 52*1, 52*1)
+  stigdep.efxstart.prep = c(Inf, Inf, 52*1, 52*1),
+  mhinterv.start        = c(Inf, Inf, 52*1, 52*1)
 )
 
 glimpse(scenarios_df)
