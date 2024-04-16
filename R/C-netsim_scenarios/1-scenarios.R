@@ -23,7 +23,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 
 # Setup (model setup) ----------------------------------------------------------------------
 #get epistats, netstats, param, init & time settings
-prep_start <- 1 * year_steps
+#prep_start <- 1 * year_steps
 source("R/netsim_settings.R", local = TRUE)
 est      <- readRDS("data/intermediate/estimates/netest-local.rds")
 
@@ -33,8 +33,9 @@ param <- param.net(
   data.frame.params   = read.csv("data/input/params.csv"),
   netstats            = netstats,
   epistats            = epistats,
-  prep.start          = 0, #prep_start,
-  riskh.start         = prep_start - year_steps - 1,
+  prep.start          = 1, #prep_start,
+  riskh.start         = 1, #prep_start, # - year_steps - 1,
+  part.ident.start    = 1, #prep_start,
 
   #newly added
   sexstigma.memdist = c(0.119, 0.133, 0.336, 0.412),
@@ -50,9 +51,6 @@ param <- param.net(
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  mhinterv.start = Inf,
-  mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0,                       #mdd screening uptake prob among all with prep indications
 
   mdd.txinit.prob = c(0.397, 0.336, 0.540),
   mde.txremiss.prob = 0.65,
@@ -61,23 +59,21 @@ param <- param.net(
   mdd.suitry.prob = 0.068,
   mdd.suicompl.prob = 0.0322,
 
-  dep.efxstart.acts = Inf,
-  ai.rate.mult = c(1, 1.125, 1.975, 0.125),
-
-  dep.efxstart.cond = Inf,
+  mhefx.start = 0, #Inf,
+  ai.rate.mult = c(1, 1.5, 2.0, 0.5),
   cond.prob.mult = c(1, 2, 8, 4),
-
-  stig.efxstart.hivtest = Inf,
-  stigma.hivtest.mult = c(1, 1.022, 0.975, 1),
-
-  dep.efxstart.hivtx = Inf,
+  stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
   txinit.rate.mult = c(1, 0.84),
-  #txadh.prob.mult = c(1, 0.61),
   txhalt.rate.mult = c(1, 1.39),
-
-  stigdep.efxstart.prep = Inf,
   prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
-  prephalt.prob.mult = c(1, 1.12)
+  prephalt.prob.mult = c(1, 1.12),
+
+  mh.scrninterv.start = 0, #Inf,
+  mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
+  mddscrnuptk.pind.prob = 0.5,                    #mdd screening uptake prob among all with prep indications
+
+  mh.txinterv.start = 0
+
 
 )
 #print(param)
@@ -105,7 +101,8 @@ control <- control_msm(
 #debug(hivtrans_msm)
 #debug(prevalence_msm)
 #debug(prep_msm)
-#sim <- netsim(est, param, init, control)
+#debug(partident_msm)
+sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
@@ -120,6 +117,7 @@ control <- control_msm(
 #undebug(hivtrans_msm)
 #undebug(prevalence_msm)
 #undebug(prep_msm)
+#undebug(partident_msm)
 
 
 # #convert sim object to df
@@ -136,17 +134,13 @@ control <- control_msm(
 # Epidemic simulation (> 1 sim) ----------------------------------------------------------
 # Define test scenarios
 scenarios_df <- tibble(
-  .scenario.id    = c("sc1_base", "sc2_efxtransmis", "sc3_efxservices",
-                      "sc4_efxall", "sc5_interv1", "sc6_interv2"),
+  .scenario.id    = c("sc1_base", "sc2_efxall", "sc3_scrn1", "sc4_scrn2", "sc5_txinterv"),
   .at             = 0,
-  dep.efxstart.acts     = c(Inf, 1,    Inf,  1,    1,    1),
-  dep.efxstart.cond     = c(Inf, 1,    Inf,  1,    1,    1),
-  stig.efxstart.hivtest = c(Inf, Inf,  1,    1,    1,    1),
-  dep.efxstart.hivtx    = c(Inf, Inf,  1,    1,    1,    1),
-  stigdep.efxstart.prep = c(Inf, Inf,  1,    1,    1,    1),
-  mhinterv.start        = c(Inf, Inf,  Inf,  Inf,  1,    1),
-  mddscrnuptk.pstat.prob= c(0,   0,    0,    0,    0.5,  0),
-  mddscrnuptk.pind.prob = c(0,   0,    0,    0,    0,    0.5)
+  mhefx.start              = c(Inf, 1,    1,    1,    1),
+  mh.scrninterv.start      = c(Inf, Inf,  1,    1,    1),
+  mddscrnuptk.pstat.prob   = c(0,   0,    0.5,  0,    0),
+  mddscrnuptk.pind.prob    = c(0,   0,    0,    0.5,  0),
+  mh.txinterv.start        = c(Inf, Inf,  Inf,  Inf,  1)
 )
 
 glimpse(scenarios_df)
