@@ -10,11 +10,11 @@ path_to_restart <- fs::path(est_dir, paste0("restart-", context, ".rds"))
 
 # `netsim` Parameters
 param <- param.net(
-  data.frame.params   = read.csv("data/input/params.csv"),
-  netstats            = netstats,
-  epistats            = epistats,
-  prep.start          = prep_start,
-  riskh.start         = prep_start - year_steps - 1
+  # data.frame.params   = read.csv("data/input/params.csv"),
+  # netstats            = netstats,
+  # epistats            = epistats,
+  # prep.start          = prep_start,
+  # riskh.start         = prep_start - year_steps - 1
 )
 
 # Initial conditions (default prevalence initialized in epistats)
