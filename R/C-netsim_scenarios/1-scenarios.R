@@ -23,7 +23,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 
 # Setup (model setup) ----------------------------------------------------------------------
 #get epistats, netstats, param, init & time settings
-#prep_start <- 1 * year_steps
+prep_start <- 1 * year_steps
 source("R/netsim_settings.R", local = TRUE)
 est      <- readRDS("data/intermediate/estimates/netest-local.rds")
 
@@ -33,9 +33,9 @@ param <- param.net(
   data.frame.params   = read.csv("data/input/params.csv"),
   netstats            = netstats,
   epistats            = epistats,
-  prep.start          = 1, #prep_start,
-  riskh.start         = 1, #prep_start, # - year_steps - 1,
-  part.ident.start    = 1, #prep_start,
+  prep.start          = prep_start,
+  riskh.start         = prep_start, # - year_steps - 1,
+  part.ident.start    = prep_start,
 
   #newly added
   sexstigma.memdist = c(0.119, 0.133, 0.336, 0.412),
@@ -101,7 +101,7 @@ control <- control_msm(
 #debug(prevalence_msm)
 #debug(prep_msm)
 #debug(partident_msm)
-sim <- netsim(est, param, init, control)
+#sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
