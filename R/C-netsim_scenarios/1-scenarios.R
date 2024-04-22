@@ -148,7 +148,7 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 4,
+  n_rep = 2,
   n_cores = 4,
   output_dir = scenarios_dir,
   save_pattern = "all"
