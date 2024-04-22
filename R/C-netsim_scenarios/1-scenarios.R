@@ -51,7 +51,7 @@ param <- param.net(
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  mdd.txinit.prob = c(0.397, 0.336, 0.540),
+  mdd.txinit.prob = c(1,1,1), #c(0.397, 0.336, 0.540),
   mde.txremiss.prob = 0.65,
   mdd.txltfu.prob = 0.145,
 
@@ -69,11 +69,9 @@ param <- param.net(
 
   mh.scrninterv.start = 0, #Inf,
   mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0.5,                    #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pind.prob = 0,                    #mdd screening uptake prob among all with prep indications
 
   mh.txinterv.start = 0
-
-
 )
 #print(param)
 
