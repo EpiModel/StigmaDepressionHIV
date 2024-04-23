@@ -69,7 +69,7 @@ param <- param.net(
 
   mh.scrninterv.start = 0, #Inf,
   mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0,                    #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pind.prob = 0.5,                    #mdd screening uptake prob among all with prep indications
 
   mh.txinterv.start = Inf
 )
@@ -99,7 +99,7 @@ control <- control_msm(
 #debug(prevalence_msm)
 #debug(prep_msm)
 #debug(partident_msm)
-#sim <- netsim(est, param, init, control)
+sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
