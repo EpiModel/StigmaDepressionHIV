@@ -47,11 +47,11 @@ param <- param.net(
   mde.start.prob = c(0.33, 0.47),                  #mde start prob of 33% in hiv- and 47% in hiv+
   mde.symsevgrp.dist = c(0.104, 0.386, 0.380, 0.129),
   mde.sevimp.symgrp.dist = c(0.196, 0.415, 0.773, 0.90),
-  mde.spontres.int  = c(15.3, 13.8, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
+  mde.spontres.int  = c(13.8, 15.3, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  mdd.txinit.prob = c(1,1,1), #c(0.397, 0.336, 0.540),
+  mdd.txinit.prob = c(0.397, 0.336, 0.540),
   mde.txremiss.prob = 0.65,
   mdd.txltfu.prob = 0.145,
 
@@ -59,7 +59,7 @@ param <- param.net(
   mdd.suicompl.prob = 0.0322,
 
   mhefx.start = 0, #Inf,
-  ai.rate.mult = c(1, 1.5, 2.0, 0.5),
+  ai.rate.mult = c(1, 1.5, 2, 0.5),
   cond.prob.mult = c(1, 2, 8, 4),
   stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
   txinit.rate.mult = c(1, 0.84),
@@ -71,14 +71,14 @@ param <- param.net(
   mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
   mddscrnuptk.pind.prob = 0,                    #mdd screening uptake prob among all with prep indications
 
-  mh.txinterv.start = 0
+  mh.txinterv.start = Inf
 )
 #print(param)
 
 #control
 pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
 control <- control_msm(
-  nsteps = prep_start + year_steps * 10
+  nsteps = prep_start + year_steps * 10 #intervention_start + 10 * year_steps
 ); #print(control)
 
 
@@ -135,8 +135,8 @@ scenarios_df <- tibble(
   .at             = 0,
   mhefx.start              = c(Inf, 1,    1,    1,    1),
   mh.scrninterv.start      = c(Inf, Inf,  1,    1,    1),
-  mddscrnuptk.pstat.prob   = c(0,   0,    0.5,  0,    0),
-  mddscrnuptk.pind.prob    = c(0,   0,    0,    0.5,  0.5),
+  mddscrnuptk.pstat.prob   = c(0,   0,    0.5,  0,    0.5),
+  mddscrnuptk.pind.prob    = c(0,   0,    0,    0.5,  0),
   mh.txinterv.start        = c(Inf, Inf,  Inf,  Inf,  1)
 )
 
@@ -148,8 +148,8 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 2,
-  n_cores = 4,
+  n_rep = 5,
+  n_cores = 5,
   output_dir = scenarios_dir,
   save_pattern = "all"
 )
