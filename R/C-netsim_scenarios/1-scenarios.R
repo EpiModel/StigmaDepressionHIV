@@ -127,15 +127,15 @@ df <- as.data.frame(sim)
 sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/intermediate/scenarios")
 
 
-saveRDS(df, paste0(sims_dir,"/sim__sc1_base__1.rds"))
-
-saveRDS(df, paste0(sims_dir,"/sim__sc2_efxall__1.rds"))
-
-saveRDS(df, paste0(sims_dir,"/sim__sc3_scrn1__1.rds"))
-
-saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
-
-saveRDS(df, paste0(sims_dir,"/sim__sc5_txinterv__1.rds"))
+# saveRDS(df, paste0(sims_dir,"/sim__sc1_base__1.rds"))
+#
+# saveRDS(df, paste0(sims_dir,"/sim__sc2_efxall__1.rds"))
+#
+# saveRDS(df, paste0(sims_dir,"/sim__sc3_scrn1__1.rds"))
+#
+# saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
+#
+# saveRDS(df, paste0(sims_dir,"/sim__sc5_txinterv__1.rds"))
 
 
 
@@ -159,7 +159,7 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 10,
+  n_rep = 5,
   n_cores = 5,
   output_dir = scenarios_dir,
   save_pattern = "all"
