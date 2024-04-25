@@ -62,6 +62,7 @@ param <- param.net(
   ai.rate.mult = c(1, 1.5, 2, 0.5),
   cond.prob.mult = c(1, 2, 8, 4),
   stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
+  minadeq_txdur = 6,
   txinit.rate.mult = c(1, 0.84),
   txhalt.rate.mult = c(1, 1.39),
   prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
@@ -154,7 +155,7 @@ glimpse(scenarios_df)
 scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 
 # Here scenarios are being used (5 scenarios)
-# This will generate5 scenarios * num of sims files
+# This will generate 5 scenarios * num of sims files
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
