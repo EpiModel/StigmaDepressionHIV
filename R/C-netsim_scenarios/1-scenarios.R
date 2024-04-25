@@ -68,10 +68,10 @@ param <- param.net(
   prephalt.prob.mult = c(1, 1.12),
 
   mh.scrninterv.start = 0, #Inf,
-  mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0.5,                   #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pstat.prob = 0.5,                    #mdd screening uptake prob among prep starters
+  mddscrnuptk.pind.prob = 0,                   #mdd screening uptake prob among all with prep indications
 
-  mh.txinterv.start = 0 #Inf
+  mh.txinterv.start = Inf
 )
 #print(param)
 
@@ -99,7 +99,7 @@ control <- control_msm(
 #debug(prevalence_msm)
 #debug(prep_msm)
 #debug(partident_msm)
-sim <- netsim(est, param, init, control)
+#sim <- netsim(est, param, init, control)
 #undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
@@ -145,20 +145,20 @@ scenarios_df <- tibble(
   .at             = 0,
   mhefx.start              = c(Inf, 1,    1,    1,    1),
   mh.scrninterv.start      = c(Inf, Inf,  1,    1,    1),
-  mddscrnuptk.pstat.prob   = c(0,   0,    0.5,  0,    0.5),
-  mddscrnuptk.pind.prob    = c(0,   0,    0,    0.5,  0),
+  mddscrnuptk.pstat.prob   = c(0,   0,    0.5,  0,    0),
+  mddscrnuptk.pind.prob    = c(0,   0,    0,    0.5,  0.5),
   mh.txinterv.start        = c(Inf, Inf,  Inf,  Inf,  1)
 )
 
 glimpse(scenarios_df)
 scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 
-# Here scenarios are being used (4 scenarios)
-# This will generate 4 scenarios * num of sims files
+# Here scenarios are being used (5 scenarios)
+# This will generate5 scenarios * num of sims files
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 1,
+  n_rep = 10,
   n_cores = 5,
   output_dir = scenarios_dir,
   save_pattern = "all"
