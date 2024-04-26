@@ -59,8 +59,8 @@ param <- param.net(
   mdd.suicompl.prob = 0.0322,
 
   mhefx.start = 0, #Inf,
-  ai.rate.mult = c(1, 1.5, 2, 0.5),
-  cond.prob.mult = c(1, 2, 8, 4),
+  ai.rate.mult = c(1, 1.5, 2, 0.5),                #turned up  by a factor of ...
+  cond.prob.mult = c(1, 2, 8, 4),                  #turned down by a factor of ...
   stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
   minadeq_txdur = 6,
   txinit.rate.mult = c(1, 0.84),
@@ -100,8 +100,8 @@ control <- control_msm(
 #debug(prevalence_msm)
 #debug(prep_msm)
 #debug(partident_msm)
-#sim <- netsim(est, param, init, control)
-#undebug(initialize_msm)
+sim <- netsim(est, param, init, control)
+-#undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
 #undebug(mde_msm)
@@ -123,7 +123,7 @@ control <- control_msm(
 #
 # output_dir <- "C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/output/local"
 # saveRDS(df, paste0(output_dir,"/df.rds"))
-df <- as.data.frame(sim)
+#df <- as.data.frame(sim)
 sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/intermediate/scenarios")
 
 
