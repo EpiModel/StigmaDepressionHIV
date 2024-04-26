@@ -59,10 +59,10 @@ param <- param.net(
   mdd.suicompl.prob = 0.0322,
 
   mhefx.start = 0, #Inf,
-  ai.rate.mult = c(1, 1.5, 2, 0.5),                #turned up  by a factor of ...
+  ai.rate.mult = c(1, 1.5, 2, 0.5),                #turned up by a factor of ...
   cond.prob.mult = c(1, 2, 8, 4),                  #turned down by a factor of ...
   stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
-  minadeq_txdur = 6,
+  minadeq_txdur = 4,
   txinit.rate.mult = c(1, 0.84),
   txhalt.rate.mult = c(1, 1.39),
   prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
@@ -70,7 +70,7 @@ param <- param.net(
 
   mh.scrninterv.start = 0, #Inf,
   mddscrnuptk.pstat.prob = 0.5,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0,                   #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pind.prob = 0,                      #mdd screening uptake prob among all with prep indications
 
   mh.txinterv.start = Inf
 )
