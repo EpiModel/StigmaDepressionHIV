@@ -70,7 +70,7 @@ param <- param.net(
 
   mh.scrninterv.start = 0, #Inf,
   mddscrnuptk.pstat.prob = 0.5,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0,                      #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pind.prob = 0,                       #mdd screening uptake prob among all with prep indications
 
   mh.txinterv.start = Inf
 )
