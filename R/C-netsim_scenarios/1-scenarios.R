@@ -69,8 +69,8 @@ param <- param.net(
   prephalt.prob.mult = c(1, 1.12),
 
   mh.scrninterv.start = 0, #Inf,
-  mddscrnuptk.pstat.prob = 0.5,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0,                       #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
+  mddscrnuptk.pind.prob = 0.5,                       #mdd screening uptake prob among all with prep indications
 
   mh.txinterv.start = Inf
 )
@@ -101,7 +101,7 @@ control <- control_msm(
 #debug(prep_msm)
 #debug(partident_msm)
 sim <- netsim(est, param, init, control)
--#undebug(initialize_msm)
+#undebug(initialize_msm)
 #undebug(arrival_msm)
 #undebug(mddassign_msm)
 #undebug(mde_msm)
@@ -123,7 +123,7 @@ sim <- netsim(est, param, init, control)
 #
 # output_dir <- "C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/output/local"
 # saveRDS(df, paste0(output_dir,"/df.rds"))
-#df <- as.data.frame(sim)
+df <- as.data.frame(sim)
 sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/intermediate/scenarios")
 
 
@@ -133,7 +133,7 @@ sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Persona
 #
 # saveRDS(df, paste0(sims_dir,"/sim__sc3_scrn1__1.rds"))
 #
-# saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
+ saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
 #
 # saveRDS(df, paste0(sims_dir,"/sim__sc5_txinterv__1.rds"))
 
@@ -142,13 +142,13 @@ sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Persona
 # Epidemic simulation (> 1 sim) ----------------------------------------------------------
 # Define test scenarios
 scenarios_df <- tibble(
-  .scenario.id    = c("sc1_base", "sc2_efxall", "sc3_scrn1", "sc4_scrn2", "sc5_txinterv"),
+  .scenario.id    = c("sc2_efxall", "sc3_scrn1", "sc4_scrn2", "sc5_txinterv"),
   .at             = 0,
-  mhefx.start              = c(Inf, 1,    1,    1,    1),
-  mh.scrninterv.start      = c(Inf, Inf,  1,    1,    1),
-  mddscrnuptk.pstat.prob   = c(0,   0,    0.5,  0,    0),
-  mddscrnuptk.pind.prob    = c(0,   0,    0,    0.5,  0.5),
-  mh.txinterv.start        = c(Inf, Inf,  Inf,  Inf,  1)
+  mhefx.start              = c(1,    1,    1,    1),
+  mh.scrninterv.start      = c(Inf,  1,    1,    1),
+  mddscrnuptk.pstat.prob   = c(0,    0.5,  0,    0),
+  mddscrnuptk.pind.prob    = c(0,    0,    0.5,  0.5),
+  mh.txinterv.start        = c(Inf,  Inf,  Inf,  1)
 )
 
 glimpse(scenarios_df)
@@ -159,8 +159,8 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 5,
-  n_cores = 5,
+  n_rep = 10,
+  n_cores = 8,
   output_dir = scenarios_dir,
   save_pattern = "all"
 )
