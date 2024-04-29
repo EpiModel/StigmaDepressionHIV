@@ -51,7 +51,8 @@ param <- param.net(
   mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
 
   mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
-  mdd.txinit.prob = c(0.397, 0.336, 0.540),
+  mdd.txinit.prob.reg = c(0.397, 0.336, 0.540),
+  mdd.txinit.prob.prep = c(0.397, 0.336, 0.540),
   mde.txremiss.prob = 0.65,
   mdd.txltfu.prob = 0.145,
 
@@ -63,6 +64,7 @@ param <- param.net(
   cond.prob.mult = c(1, 2, 8, 4),                  #turned down by a factor of ...
   stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
   minadeq_txdur = 4,
+  stigcounse_efxdur = 4 * 6,                       #effects of stigma interv post discontinuation
   txinit.rate.mult = c(1, 0.84),
   txhalt.rate.mult = c(1, 1.39),
   prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
@@ -127,15 +129,15 @@ df <- as.data.frame(sim)
 sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/intermediate/scenarios")
 
 
-# saveRDS(df, paste0(sims_dir,"/sim__sc1_base__1.rds"))
+#saveRDS(df, paste0(sims_dir,"/sim__sc1_base__1.rds"))
 #
-# saveRDS(df, paste0(sims_dir,"/sim__sc2_efxall__1.rds"))
+#saveRDS(df, paste0(sims_dir,"/sim__sc2_efxall__1.rds"))
 #
 # saveRDS(df, paste0(sims_dir,"/sim__sc3_scrn1__1.rds"))
 #
- saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
+saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
 #
-# saveRDS(df, paste0(sims_dir,"/sim__sc5_txinterv__1.rds"))
+#saveRDS(df, paste0(sims_dir,"/sim__sc5_txinterv__1.rds"))
 
 
 
@@ -154,13 +156,13 @@ scenarios_df <- tibble(
 glimpse(scenarios_df)
 scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 
-# Here scenarios are being used (5 scenarios)
-# This will generate 5 scenarios * num of sims files
+# Here scenarios are being used (4 scenarios)
+# This will generate 4 scenarios * num of sims files
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 10,
-  n_cores = 8,
+  n_rep = 5,
+  n_cores = 5,
   output_dir = scenarios_dir,
   save_pattern = "all"
 )
