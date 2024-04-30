@@ -44,13 +44,13 @@ param <- param.net(
   mddcoef.race = c(1.066135463, 1.446118104, 1),
   mddcoef.hiv = c(1, 1.086847192),
 
-  mde.start.prob = c(0.33, 0.47),                  #mde start prob of 33% in hiv- and 47% in hiv+
+  mde.start.prob = c(0.33, 0.47),                   #mde start prob of 33% in hiv- and 47% in hiv+
   mde.symsevgrp.dist = c(0.104, 0.386, 0.380, 0.129),
   mde.sevimp.symgrp.dist = c(0.196, 0.415, 0.773, 0.90),
   mde.spontres.int  = c(13.8, 15.3, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
-  mde.recurr.int  = c(30/7 * 19, 30/7 * 32.9),    #median well interval untreated and treated (19 mos/ 32.9 mos)
+  mde.recurr.int  = c(76, 131.6),                   #median well interval untreated and treated (19 mos/ 32.9 mos)
 
-  mdd.diag.gen.prob = c(0.47, 0.45),               #prob of diagnosis hiv neg/hiv pos
+  mdd.diag.gen.prob = c(0.47, 0.45),                #prob of diagnosis hiv neg/hiv pos
   mdd.txinit.prob.reg = c(0.397, 0.336, 0.540),
   mdd.txinit.prob.prep = c(0.397, 0.336, 0.540),
   mde.txremiss.prob = 0.65,
@@ -72,9 +72,13 @@ param <- param.net(
 
   mh.scrninterv.start = 0, #Inf,
   mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0.5,                       #mdd screening uptake prob among all with prep indications
+  mddscrnuptk.pind.prob = 0.5,                      #mdd screening uptake prob among all with prep indications
 
-  mh.txinterv.start = Inf
+  mh.txinterv.start = 0,
+  mh.stigtxefx.prepinit = 1.5,
+  mh.stigtxefx.prephalt = 0.5,
+  mh.stigtxefx.hivtst = 1.5,
+  mh.stigtxefx.uai = 0.5,
 )
 #print(param)
 
@@ -135,9 +139,9 @@ sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Persona
 #
 # saveRDS(df, paste0(sims_dir,"/sim__sc3_scrn1__1.rds"))
 #
-saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
+#saveRDS(df, paste0(sims_dir,"/sim__sc4_scrn2__1.rds"))
 #
-#saveRDS(df, paste0(sims_dir,"/sim__sc5_txinterv__1.rds"))
+saveRDS(df, paste0(sims_dir,"/sim__sc8_txinterv__1.rds"))
 
 
 
@@ -161,7 +165,7 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 5,
+  n_rep = 20,
   n_cores = 5,
   output_dir = scenarios_dir,
   save_pattern = "all"
