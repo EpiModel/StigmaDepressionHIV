@@ -71,7 +71,7 @@ param <- param.net(
   prephalt.prob.mult = c(1, 1.12),
 
   mh.scrninterv.start = 0, #Inf,
-  mddscrnuptk.pstat.prob = 0,                    #mdd screening uptake prob among prep starters
+  mddscrnuptk.pstat.prob = 0,                       #mdd screening uptake prob among prep starters
   mddscrnuptk.pind.prob = 0.5,                      #mdd screening uptake prob among all with prep indications
 
   mh.txinterv.start = 0,
@@ -148,13 +148,17 @@ saveRDS(df, paste0(sims_dir,"/sim__sc8_txinterv__1.rds"))
 # Epidemic simulation (> 1 sim) ----------------------------------------------------------
 # Define test scenarios
 scenarios_df <- tibble(
-  .scenario.id    = c("sc2_efxall", "sc3_scrn1", "sc4_scrn2", "sc5_txinterv"),
+  .scenario.id    = c("sc0_base", "sc1_scrn1", "sc2_scrn2", "sc3_txinterv1", "sc4_txinterv2"),
   .at             = 0,
-  mhefx.start              = c(1,    1,    1,    1),
-  mh.scrninterv.start      = c(Inf,  1,    1,    1),
-  mddscrnuptk.pstat.prob   = c(0,    0.5,  0,    0),
-  mddscrnuptk.pind.prob    = c(0,    0,    0.5,  0.5),
-  mh.txinterv.start        = c(Inf,  Inf,  Inf,  1)
+  mhefx.start              = c(1,    1,    1,    1,   1),
+  mh.scrninterv.start      = c(Inf,  1,    1,    1,   1),
+  mddscrnuptk.pstat.prob   = c(0,    0.5,  0,    0,   0),
+  mddscrnuptk.pind.prob    = c(0,    0,    0.5,  0.5, 0.5),
+  mh.txinterv.start        = c(Inf,  Inf,  Inf,  1,   1),
+  mh.stigtxefx.prepinit    = c(0,    0,    0,    1.5, 2),
+  mh.stigtxefx.prephalt    = c(0,    0,    0,    0.5, 0.125),
+  mh.stigtxefx.hivtst      = c(0,    0,    0,    1.5, 2),
+  mh.stigtxefx.uai         = c(0,    0,    0,    0.5, 0.125)
 )
 
 glimpse(scenarios_df)
@@ -165,7 +169,7 @@ scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 EpiModelHPC::netsim_scenarios(
   path_to_est, param, init, control,
   scenarios_list = scenarios_list, # set to NULL to run with default params
-  n_rep = 20,
+  n_rep = 5,
   n_cores = 5,
   output_dir = scenarios_dir,
   save_pattern = "all"
