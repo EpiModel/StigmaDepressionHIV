@@ -19,8 +19,7 @@ renv::install(c(
 renv::hydrate()
 
 
-remotes::install_github(c("EpiModel/ARTnetData",
-                          "EpiModel/ARTnet"))
+renv::install(c("EpiModel/ARTnetData", "EpiModel/ARTnet"))
 
 
 
