@@ -3,8 +3,8 @@
 ## This script should not be run directly. But `sourced` from other scripts
 
 # EpiModelHIV-p local directory
-EMHIVp_branch <- "applied_proj"
-EMHIVp_dir    <- "Desktop\\git\\EpiModelHIV-p"
+EMHIVp_branch <- "StigmaDepressionHIV_real"
+EMHIVp_dir    <- "../EpiModelHIV-p.git/StigmaDepressionHIV_real"
 
 
 
