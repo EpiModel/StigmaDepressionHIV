@@ -9,7 +9,7 @@ mail_user <- "aleguil@emory.edu"
 hpc_node_setup <- c(
   ". /projects/epimodel/spack/share/spack/setup-env.sh",
   "spack unload -a",
-  "spack load r@4.2.1",
+  "spack load r@4.3.2",
   "spack load git@2.35.1"
 )
 
@@ -21,7 +21,7 @@ make_em_workflow <- function(wf_name, override = FALSE) {
   wf <- slurmworkflow::create_workflow(
     wf_name = wf_name,
     default_sbatch_opts = list(
-      "partition" = "epimodel", #"preemptable",
+      "partition" = "preemptable", # "epimodel", #
       # "account" = "csde",
       "mail-type" = "FAIL",
       "mail-user" = mail_user
