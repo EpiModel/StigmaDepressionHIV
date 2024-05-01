@@ -83,7 +83,7 @@ param <- param.net(
 #print(param)
 
 #control
-pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
+# pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
 control <- control_msm(
   nsteps = prep_start + year_steps * 10 #intervention_start + 10 * year_steps
 ); #print(control)
