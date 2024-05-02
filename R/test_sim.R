@@ -16,12 +16,15 @@ param <- param.net(
   epistats            = epistats,
   prep.start          = 0,
   riskh.start         = 0, # - year_steps - 1,
-  part.ident.start    = Inf
+  part.ident.start    = Inf,
+  mdd.prob.base = 0.3,
+  mdd.diag.gen.prob = c(0.1, 0.2)
 )
 
 control <- control_msm(
   .tracker.list = EpiModelHIV::make_calibration_trackers(),
-  nsteps = calibration_end
+  nsteps = 2000, #calibration_end
+  verbose = TRUE
 )
 
 sim <- netsim(est, param, init, control)
