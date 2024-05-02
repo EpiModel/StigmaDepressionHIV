@@ -6,17 +6,14 @@
 EMHIVp_branch <- "StigmaDepressionHIV_real"
 EMHIVp_dir    <- "../EpiModelHIV-p.git/StigmaDepressionHIV_real"
 
-
-
-
 # Relevant time steps for the simulation
 time_unit  <- 7               # number of days in a time step
 year_steps <- 364 / time_unit # number of time steps in a year
 
 calibration_end    <- 60 * year_steps
 restart_time       <- calibration_end + 1
-prep_start         <- restart_time + 5 * year_steps
-intervention_start <- prep_start + 10 * year_steps
+# prep_start         <- restart_time + 5 * year_steps
+intervention_start <- restart_time + 10 * year_steps
 intervention_end   <- intervention_start + 10 * year_steps
 
 
