@@ -19,7 +19,7 @@ batch_size <- 8
 ## Uncomment the calibration config to use
 source("R/Z-calibration/swfcalib_config.R")
 
-wf <- make_em_workflow("swfcalib", override = TRUE)
+wf <- make_em_workflow("dep_swfcalib", override = TRUE)
 
 # Calibration step 1
 wf <- add_workflow_step(

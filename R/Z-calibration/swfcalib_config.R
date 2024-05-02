@@ -9,7 +9,11 @@
 source("R/Z-calibration/swfcalib_model.R", local = TRUE)
 model_fn <- make_model_fn(restart = FALSE, calib_steps = year_steps)
 targets <- EpiModelHIV::get_calibration_targets()
-params_df <- readr::read_csv("data/input/params.csv")
+
+params_df <- readr::read_csv("data/input/params.csv") |>
+  dplyr::select(-type, -source) |>
+  dplyr::mutate(value = as.numeric(value)) |>
+  tidyr::pivot_wider(names_from = param)
 
 n_sims <- 256
 
@@ -167,7 +171,7 @@ calib_object <- list(
         make_next_proposals = swfcalib::make_shrink_proposer(n_sims, shrink = 2),
         get_result = swfcalib::determ_poly_end(0.001, poly_n = 3)
       )
-    )
+    ),
     wave4 = list(
       job4 = list(
         targets = "ir100.gc",
