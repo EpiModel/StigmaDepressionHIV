@@ -16,6 +16,7 @@ library(EpiModelHIV)
 library(dplyr)
 
 source("R/shared_variables.R", local = TRUE)
+hpc_context <- TRUE
 source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 
 
@@ -23,7 +24,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 
 # Setup (model setup) ----------------------------------------------------------------------
 #get epistats, netstats, param, init & time settings
-prep_start <- 1 * year_steps
+prep_start <- calibration_end
 source("R/netsim_settings.R", local = TRUE)
 est      <- readRDS("data/intermediate/estimates/netest-local.rds")
 
