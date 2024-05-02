@@ -34,17 +34,18 @@ param <- param.net(
   data.frame.params   = read.csv("data/input/params.csv"),
   netstats            = netstats,
   epistats            = epistats,
-  prep.start          = prep_start,
-  riskh.start         = prep_start, # - year_steps - 1,
-  part.ident.start    = prep_start
+  prep.start          = 0,
+  riskh.start         = 0, # - year_steps - 1,
+  part.ident.start    = Inf
 )
 #print(param)
 
 #control
 # pkgload::load_all("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/EpiModelHIV-p")
 control <- control_msm(
-  nsteps = prep_start + year_steps * 10 #intervention_start + 10 * year_steps
-); #print(control)
+  .tracker.list = EpiModelHIV::make_calibration_trackers(),
+  nsteps = calibration_end
+)
 
 
 
