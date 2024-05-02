@@ -17,7 +17,7 @@ source("R/Z-calibration/z-context.R", local = TRUE)
 
 # Process ----------------------------------------------------------------------
 
-swfcalib_dir <- fs::path("data", "run", "swfcalib")
+swfcalib_dir <- fs::path("data", "intermediate", "swfcalib")
 theme_set(theme_light())
 
 # Assessment -------------------------------------------------------------------
