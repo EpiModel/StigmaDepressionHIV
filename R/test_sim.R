@@ -17,7 +17,8 @@ param <- param.net(
   prep.start          = 0,
   riskh.start         = 0, # - year_steps - 1,
   part.ident.start    = Inf,
-  mdd.diag.gen.prob = c(0.000, 0.00)
+  mdd.diag.gen.prob = c(0.1, 0.3),
+  mddscrnuptk.pind.prob = 0
 )
 
 control <- control_msm(
@@ -40,7 +41,7 @@ d <- as_tibble(sim)
 
 d |> select(
   time,
-  mdd.prphiv1, mdd.prphiv0, mdd.diag.prphiv1, mdd.diag.prphiv0
+  mdd.prphiv1, mdd.prphiv0, mdd.diag.prphiv1, mdd.diag.prphiv0, mdd.scrndat.numpind
 ) |> pivot_longer(-time) |>
 ggplot(aes(x = time, y = value, col = name)) +
   geom_line()
