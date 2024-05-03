@@ -29,6 +29,58 @@ est      <- readRDS("data/intermediate/estimates/netest-local.rds")
 
 
 #update param
+# param <- param.net(
+#   data.frame.params   = read.csv("data/input/params.csv"),
+#   netstats            = netstats,
+#   epistats            = epistats,
+#   prep.start          = prep_start,
+#   riskh.start         = prep_start, # - year_steps - 1,
+#   part.ident.start    = prep_start,
+#
+#   #newly added
+#   sexstigma.memdist = c(0.119, 0.133, 0.336, 0.412),
+#
+#   mddcoef.stigma = c(5.947530777, 2.348486854, 2.687909524, 1),
+#   mddcoef.race = c(1.066135463, 1.446118104, 1),
+#   mddcoef.hiv = c(1, 1.086847192),
+#
+#   mde.start.prob = c(0.33, 0.47),                   #mde start prob of 33% in hiv- and 47% in hiv+
+#   mde.symsevgrp.dist = c(0.104, 0.386, 0.380, 0.129),
+#   mde.sevimp.symgrp.dist = c(0.196, 0.415, 0.773, 0.90),
+#   mde.spontres.int  = c(13.8, 15.3, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
+#   mde.recurr.int  = c(76, 131.6),                   #median well interval untreated and treated (19 mos/ 32.9 mos)
+#
+#   mdd.diag.gen.prob = c(0.47, 0.45),                #prob of diagnosis hiv neg/hiv pos
+#   mdd.txinit.prob.reg = c(0.397, 0.336, 0.540),
+#   mdd.txinit.prob.prep = c(0.397, 0.336, 0.540),
+#   mde.txremiss.prob = 0.65,
+#   mdd.txltfu.prob = 0.145,
+#
+#   mdd.suitry.prob = 0.068,
+#   mdd.suicompl.prob = 0.0322,
+#
+#   mhefx.start = 0, #Inf,
+#   ai.rate.mult = c(1, 1.5, 2, 0.5),                #turned up by a factor of ...
+#   cond.prob.mult = c(1, 2, 8, 4),                  #turned down by a factor of ...
+#   stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
+#   minadeq_txdur = 4,
+#   stigcounse_efxdur = 4 * 6,                       #effects of stigma interv post discontinuation
+#   txinit.rate.mult = c(1, 0.84),
+#   txhalt.rate.mult = c(1, 1.39),
+#   prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
+#   prephalt.prob.mult = c(1, 1.12),
+#
+#   mh.scrninterv.start = 0, #Inf,
+#   mddscrnuptk.pstat.prob = 0,                       #mdd screening uptake prob among prep starters
+#   mddscrnuptk.pind.prob = 0.5,                      #mdd screening uptake prob among all with prep indications
+#
+#   mh.txinterv.start = 0,
+#   mh.stigtxefx.prepinit = 1.5,
+#   mh.stigtxefx.prephalt = 0.5,
+#   mh.stigtxefx.hivtst = 1.5,
+#   mh.stigtxefx.uai = 0.5,
+# )
+
 param <- param.net(
   data.frame.params   = read.csv("data/input/params.csv"),
   netstats            = netstats,
@@ -36,49 +88,6 @@ param <- param.net(
   prep.start          = prep_start,
   riskh.start         = prep_start, # - year_steps - 1,
   part.ident.start    = prep_start,
-
-  #newly added
-  sexstigma.memdist = c(0.119, 0.133, 0.336, 0.412),
-
-  mddcoef.stigma = c(5.947530777, 2.348486854, 2.687909524, 1),
-  mddcoef.race = c(1.066135463, 1.446118104, 1),
-  mddcoef.hiv = c(1, 1.086847192),
-
-  mde.start.prob = c(0.33, 0.47),                   #mde start prob of 33% in hiv- and 47% in hiv+
-  mde.symsevgrp.dist = c(0.104, 0.386, 0.380, 0.129),
-  mde.sevimp.symgrp.dist = c(0.196, 0.415, 0.773, 0.90),
-  mde.spontres.int  = c(13.8, 15.3, 16.6, 23.1),    #median num of weeks to mde resolution (by symptom severity group)
-  mde.recurr.int  = c(76, 131.6),                   #median well interval untreated and treated (19 mos/ 32.9 mos)
-
-  mdd.diag.gen.prob = c(0.47, 0.45),                #prob of diagnosis hiv neg/hiv pos
-  mdd.txinit.prob.reg = c(0.397, 0.336, 0.540),
-  mdd.txinit.prob.prep = c(0.397, 0.336, 0.540),
-  mde.txremiss.prob = 0.65,
-  mdd.txltfu.prob = 0.145,
-
-  mdd.suitry.prob = 0.068,
-  mdd.suicompl.prob = 0.0322,
-
-  mhefx.start = 0, #Inf,
-  ai.rate.mult = c(1, 1.5, 2, 0.5),                #turned up by a factor of ...
-  cond.prob.mult = c(1, 2, 8, 4),                  #turned down by a factor of ...
-  stigma.hivtest.mult = c(1, 0.975, 1.022, 1),
-  minadeq_txdur = 4,
-  stigcounse_efxdur = 4 * 6,                       #effects of stigma interv post discontinuation
-  txinit.rate.mult = c(1, 0.84),
-  txhalt.rate.mult = c(1, 1.39),
-  prepinit.prob.mult = c(0.65, 0.60, 0.88, 0.81, 1, 0.86, 1.16, 1),
-  prephalt.prob.mult = c(1, 1.12),
-
-  mh.scrninterv.start = 0, #Inf,
-  mddscrnuptk.pstat.prob = 0,                       #mdd screening uptake prob among prep starters
-  mddscrnuptk.pind.prob = 0.5,                      #mdd screening uptake prob among all with prep indications
-
-  mh.txinterv.start = 0,
-  mh.stigtxefx.prepinit = 1.5,
-  mh.stigtxefx.prephalt = 0.5,
-  mh.stigtxefx.hivtst = 1.5,
-  mh.stigtxefx.uai = 0.5,
 )
 #print(param)
 
