@@ -142,7 +142,7 @@ df <- as.data.frame(sim)
 sims_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/intermediate/scenarios")
 
 
-#saveRDS(df, paste0(sims_dir,"/sim__sc1_base__1.rds"))
+saveRDS(df, paste0(sims_dir,"/sim__sc1_base__1.rds"))
 #
 #saveRDS(df, paste0(sims_dir,"/sim__sc2_efxall__1.rds"))
 #
