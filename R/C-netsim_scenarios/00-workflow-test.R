@@ -15,36 +15,36 @@ source("R/shared_variables.R", local = TRUE)
 source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 source("R/hpc_configs.R", local = TRUE)
 
-max_cores <- 8
+max_cores <- 32
+numsims <- 1 * max_cores
+
+
 
 # Process ----------------------------------------------------------------------
 #wf <- make_em_workflow("networks", override = TRUE)
+
 
 # Necessary files
 prep_start <- 2 * year_steps
 source("R/netsim_settings.R", local = TRUE)
 
-# Control settings
+
+#Control settings
 control <- control_msm(
   nsteps = prep_start + year_steps * 3
 )
 
-# Workflow creation
-wf <- make_em_workflow("scenarios", override = TRUE)
 
-# # Define test scenarios
-# scenarios_df <- tibble(
-#   .scenario.id    = c("scenario_1", "scenario_2"),
-#   .at             = 1,
-#   hiv.test.rate_1 = c(0.004, 0.005),
-#   hiv.test.rate_2 = c(0.004, 0.005),
-#   hiv.test.rate_3 = c(0.007, 0.008)
-# )
-# or read them from CSV
+#Create workflow
+wf <- make_em_workflow("stigdep_testrun", override = TRUE)
+
+
+#Define test scenarios
 scenarios_df <- readr::read_csv("./data/input/scenarios.csv")
-
 scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 
+
+#HIV epidemic simulation
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_netsim_scenarios(
@@ -52,7 +52,7 @@ wf <- add_workflow_step(
     scenarios_list = scenarios_list,
     output_dir = scenarios_dir,
     save_pattern = "all",
-    n_rep = 32,
+    n_rep = numsims,
     n_cores = max_cores,
     max_array_size = 500,
     setup_lines = hpc_node_setup
@@ -65,7 +65,7 @@ wf <- add_workflow_step(
   )
 )
 
-# # Process calibrations
+# # Process output
 # wf <- add_workflow_step(
 #   wf_summary = wf,
 #   step_tmpl = step_tmpl_merge_netsim_scenarios_tibble(
@@ -83,3 +83,17 @@ wf <- add_workflow_step(
 #       "mem-per-cpu" = "5G"
 #     )
 # )
+
+
+
+
+# to send restart file to the HPC (Run in R terminal)
+# scp -r data/intermediate/hpc/estimates sph: /projects/epimodel/uonwubi/PartnerServiceYr3/data/intermediate/hpc/
+# scp -r data/intermediate/hpc/estimates sph:projects/epimodel/uonwubi/PartnerServiceYr3/data/intermediate/hpc/
+
+# to send workflows to the HPC (Run in R terminal)
+# scp -r workflows/psy3tbl2 sph:projects/epimodel/uonwubi/PartnerServiceYr3/workflows
+
+# # to execute jobs
+# chmod +x workflows/stigdep_testrun/start_workflow.sh
+# ./workflows/stigdep_testrun/start_workflow.sh
