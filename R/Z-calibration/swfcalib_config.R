@@ -15,7 +15,7 @@ params_df <- readr::read_csv("data/input/params.csv") |>
   dplyr::mutate(value = as.numeric(value)) |>
   tidyr::pivot_wider(names_from = param)
 
-n_sims <- 256
+n_sims <- 512
 
 calib_object <- list(
   # state = list() # managed internally
@@ -41,7 +41,7 @@ calib_object <- list(
     )
   ),
   waves = list(
-    wave1 = list(
+    # wave1 = list(
     #   job0 = list(
     #     targets = "disease.mr100",
     #     targets_val = targets["disease.mr100"],
@@ -92,18 +92,18 @@ calib_object <- list(
     #     make_next_proposals = swfcalib::make_shrink_proposer(n_sims, shrink = 2),
     #     get_result = swfcalib::determ_poly_end(0.001, poly_n = 5)
     #   ),
-      job5 = list(
-        targets = c("mdd.diag.prphiv0", "mdd.diag.prphiv1"),
-        targets_val = targets[c("mdd.diag.prphiv0", "mdd.diag.prphiv1")],
-        params = c("mdd.diag.gen.prob_1", "mdd.diag.gen.prob_2"),
-        initial_proposals = dplyr::tibble(
-          mdd.diag.gen.prob_1 = seq(0.01, 0.3, length.out = n_sims),
-          mdd.diag.gen.prob_2 = seq(0.01, 0.3, length.out = n_sims)
-        ),
-        make_next_proposals = swfcalib::make_shrink_proposer(n_sims, shrink = 2),
-        get_result = swfcalib::determ_poly_end(0.001, poly_n = 5)
-      )
-    ),
+    #   job5 = list(
+    #     targets = c("mdd.diag.prphiv0", "mdd.diag.prphiv1"),
+    #     targets_val = targets[c("mdd.diag.prphiv0", "mdd.diag.prphiv1")],
+    #     params = c("mdd.diag.gen.prob_1", "mdd.diag.gen.prob_2"),
+    #     initial_proposals = dplyr::tibble(
+    #       mdd.diag.gen.prob_1 = seq(0.01, 0.3, length.out = n_sims),
+    #       mdd.diag.gen.prob_2 = seq(0.01, 0.3, length.out = n_sims)
+    #     ),
+    #     make_next_proposals = swfcalib::make_shrink_proposer(n_sims, shrink = 2),
+    #     get_result = swfcalib::determ_poly_end(0.001, poly_n = 5)
+    #   )
+    # ),
     wave2 = list(
       job1 = list(
         targets = "cc.dx.B",

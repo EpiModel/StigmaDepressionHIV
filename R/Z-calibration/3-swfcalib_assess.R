@@ -25,7 +25,7 @@ swfcalib::render_assessment(fs::path(swfcalib_dir, "assessments.rds"))
 
 # Results ----------------------------------------------------------------------
 # results <- readRDS(fs::path(swfcalib_dir, "results.rds"))
-results <- readRDS("./full_results.rds")
+results <- readRDS(fs::path(swfcalib_dir, "results.rds"))
 
 pu <- results |>
   filter(abs(ir100.gc - 12.81) < 0.1) |>
@@ -48,12 +48,12 @@ results |>
 # targets_val = c(0.829, 0.898, 0.881),
 # params = paste0("tx.init.rate_", 1:3),
 ggplot(results, aes(
-    x = ugc.prob,
-    y = ir100.gc,
+    x = mdd.diag.gen.prob_1,
+    y = mdd.diag.prphiv1,
     col = as.factor(.iteration)
   )) +
   geom_point() +
-  geom_hline(yintercept = 12.81)
+  geom_hline(yintercept = c(0.47, 0.45))
 
 ggplot(results, aes(
     x = hiv.test.rate_1,

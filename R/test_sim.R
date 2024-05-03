@@ -17,8 +17,7 @@ param <- param.net(
   prep.start          = 0,
   riskh.start         = 0, # - year_steps - 1,
   part.ident.start    = Inf,
-  mdd.prob.base = 0.3,
-  mdd.diag.gen.prob = c(0.1, 0.2)
+  mdd.diag.gen.prob = c(0.000, 0.00)
 )
 
 control <- control_msm(
