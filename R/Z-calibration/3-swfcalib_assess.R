@@ -49,7 +49,7 @@ results |>
 # params = paste0("tx.init.rate_", 1:3),
 ggplot(results, aes(
     x = mdd.diag.gen.prob_1,
-    y = mdd.diag.prphiv1,
+    y = mdd.diag.prphiv0,
     col = as.factor(.iteration)
   )) +
   geom_point() +
