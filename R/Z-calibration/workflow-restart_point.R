@@ -66,25 +66,25 @@ wf <- add_workflow_step(
   )
 )
 
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/Z-calibration/choose_restart.R",
-    args = list(hpc_context = TRUE),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "02:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/Z-calibration/choose_restart.R",
+#     args = list(hpc_context = TRUE),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "02:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
 
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
     r_script = "R/Z-calibration/process_calib_plots.R",
-    args = list(hpc_context = TRUE),
+    args = list(hpc_context = TRUE, scenario = "empty_scenario"),
     setup_lines = hpc_node_setup
   ),
   sbatch_opts = list(
