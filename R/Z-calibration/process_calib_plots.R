@@ -63,7 +63,11 @@ calib_plot_infos <- list(
     window_size = 13
   ),
   mdd = list(
-    names = c("mdd.prphiv1", "mdd.prphiv0", "mdd.diag.prphiv1", "mdd.diag.prphiv0"),
+    names = c("mdd.prphiv1", "mdd.prphiv0"),
+    window_size = 13
+  ),
+  mdd_diag = list(
+    names = c("mdd.diag.prphiv1", "mdd.diag.prphiv0"),
     window_size = 13
   )
 )

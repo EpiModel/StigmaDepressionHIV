@@ -26,6 +26,7 @@ swfcalib::render_assessment(fs::path(swfcalib_dir, "assessments.rds"))
 # Results ----------------------------------------------------------------------
 # results <- readRDS(fs::path(swfcalib_dir, "results.rds"))
 results <- readRDS(fs::path(swfcalib_dir, "results.rds"))
+proposals <- readRDS(fs::path(swfcalib_dir, "proposals.rds"))
 
 pu <- results |>
   filter(abs(ir100.gc - 12.81) < 0.1) |>
@@ -48,8 +49,8 @@ results |>
 # targets_val = c(0.829, 0.898, 0.881),
 # params = paste0("tx.init.rate_", 1:3),
 ggplot(results, aes(
-    x = mdd.diag.gen.prob_1,
-    y = mdd.diag.prphiv0,
+    x = mdd.,
+    y = mdd.prphiv1,
     col = as.factor(.iteration)
   )) +
   geom_point() +
