@@ -97,7 +97,7 @@ calib_object <- list(
         targets_val = targets[c("mdd.diag.prphiv0")],
         params = c("mdd.diag.gen.prob_1"),
         initial_proposals = dplyr::tibble(
-          mdd.diag.gen.prob_1 = seq(0.1, 0.3, length.out = n_sims)
+          mdd.diag.gen.prob_1 = seq(0.08, 0.3, length.out = n_sims)
         ),
         make_next_proposals = swfcalib::make_shrink_proposer(n_sims, shrink = 2),
         get_result = swfcalib::determ_poly_end(0.001, poly_n = 5)
@@ -107,7 +107,7 @@ calib_object <- list(
         targets_val = targets[c("mdd.diag.prphiv1")],
         params = c("mdd.diag.gen.prob_2"),
         initial_proposals = dplyr::tibble(
-          mdd.diag.gen.prob_2 = seq(0.1, 0.3, length.out = n_sims),
+          mdd.diag.gen.prob_2 = seq(0.08, 0.3, length.out = n_sims),
         ),
         make_next_proposals = swfcalib::make_shrink_proposer(n_sims, shrink = 2),
         get_result = swfcalib::determ_poly_end(0.001, poly_n = 5)

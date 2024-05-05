@@ -49,8 +49,8 @@ results |>
 # targets_val = c(0.829, 0.898, 0.881),
 # params = paste0("tx.init.rate_", 1:3),
 ggplot(results, aes(
-    x = mdd.,
-    y = mdd.prphiv1,
+    x = mdd.diag.gen.prob_2,
+    y = mdd.diag.prphiv1,
     col = as.factor(.iteration)
   )) +
   geom_point() +
