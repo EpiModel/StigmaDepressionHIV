@@ -71,8 +71,8 @@ acts.scale,1,numeric,
 cond.scale,1,numeric,
 rgc.prob,0.26,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
 ugc.prob,0.22,numeric,CPN-gaps appendix 9.4 | calibrated
-rct.prob,0.1865,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
-uct.prob,0.155,numeric, CPN-gaps appendix 9.3 | calibrated
+rct.prob,0.1877,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
+uct.prob,0.156,numeric, CPN-gaps appendix 9.3 | calibrated
 rgc.sympt.prob,0.1,numeric, CPN-aps 9.3
 ugc.sympt.prob,0.9333,numeric, CPN-Gaps10.3
 rct.sympt.prob,0.1,numeric, CPN- gaps 10.2
@@ -178,7 +178,7 @@ mddcoef.race_1,1.066135463,numeric,
 mddcoef.race_2,1.446118104,numeric,
 mddcoef.race_3,1,numeric,
 mddcoef.hiv_1,1,numeric,
-mddcoef.hiv_2,1.15,numeric,formerly 1.09
+mddcoef.hiv_2,1.175,numeric,formerly 1.09
 mde.start.prob_1,0.33,numeric,
 mde.start.prob_2,0.47,numeric,
 mde.symsevgrp.dist_1,0.104,numeric,
