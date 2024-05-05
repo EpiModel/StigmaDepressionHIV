@@ -69,10 +69,10 @@ hiv.circ.prob_3,0.918,numeric,
 acts.aids.vl,5.75,numeric,
 acts.scale,1,numeric,
 cond.scale,1,numeric,
-rgc.prob,0.3014926,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
-ugc.prob,0.256671,numeric,CPN-gaps appendix 9.4 | calibrated
-rct.prob,0.2168114,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
-uct.prob,0.1813112,numeric, CPN-gaps appendix 9.3 | calibrated
+rgc.prob,0.2830,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
+ugc.prob,0.24,numeric,CPN-gaps appendix 9.4 | calibrated
+rct.prob,0.1923,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
+uct.prob,0.16,numeric, CPN-gaps appendix 9.3 | calibrated
 rgc.sympt.prob,0.1,numeric, CPN-aps 9.3
 ugc.sympt.prob,0.9333,numeric, CPN-Gaps10.3
 rct.sympt.prob,0.1,numeric, CPN- gaps 10.2
@@ -178,7 +178,7 @@ mddcoef.race_1,1.066135463,numeric,
 mddcoef.race_2,1.446118104,numeric,
 mddcoef.race_3,1,numeric,
 mddcoef.hiv_1,1,numeric,
-mddcoef.hiv_2,1.086847192,numeric,
+mddcoef.hiv_2,1.1,numeric,
 mde.start.prob_1,0.33,numeric,
 mde.start.prob_2,0.47,numeric,
 mde.symsevgrp.dist_1,0.104,numeric,
@@ -196,7 +196,7 @@ mde.spontres.int_4,23.1,numeric,
 mde.recurr.int_1,76,numeric,
 mde.recurr.int_2,131.6,numeric,
 mdd.diag.gen.prob_1,0.2276,numeric,
-mdd.diag.gen.prob_2,0.1,numeric,
+mdd.diag.gen.prob_2,0.09,numeric,
 mdd.txinit.prob.reg_1,0.397,numeric,
 mdd.txinit.prob.reg_2,0.336,numeric,
 mdd.txinit.prob.reg_3,0.54,numeric,
