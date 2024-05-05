@@ -30,9 +30,7 @@ proposals <- readRDS(fs::path(swfcalib_dir, "proposals.rds"))
 
 pu <- results |>
   filter(abs(ir100.gc - 12.81) < 0.1) |>
-  pull(ugc.prob)
-
-|> median()
+  pull(ugc.prob) |> median()
 
 pgc <- results |>
   filter(abs(ugc.prob - 0.2584717) < 0.001) |>
