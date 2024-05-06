@@ -12,14 +12,14 @@ source("R/shared_variables.R", local = TRUE)
 source("R/Z-calibration/z-context.R", local = TRUE)
 source("R/hpc_configs.R", local = TRUE)
 
-batch_size <- 8
+batch_size <- 32
 
 # Process ----------------------------------------------------------------------
 
 ## Uncomment the calibration config to use
 source("R/Z-calibration/swfcalib_config.R")
 
-wf <- make_em_workflow("dep_swfcalib", override = TRUE)
+wf <- make_em_workflow("swfcalib", override = TRUE)
 
 # Calibration step 1
 wf <- add_workflow_step(
