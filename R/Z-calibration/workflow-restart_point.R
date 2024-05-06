@@ -26,6 +26,8 @@ control <- control_msm(
   .tracker.list = EpiModelHIV::make_calibration_trackers()
 )
 
+init$init_attr <- readRDS("./d_init_attr.rds")
+
 wf <- make_em_workflow("restart_point", override = TRUE)
 
 wf <- add_workflow_step(

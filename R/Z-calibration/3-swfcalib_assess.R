@@ -68,9 +68,11 @@ ggplot(results, aes(
 results |>
   group_by(.iteration) |>
   summarize(
-    lo = min(hiv.test.rate_1),
-    hi = max(hiv.test.rate_1)
+    lo = min(hiv.trans.scale_3),
+    hi = max(hiv.trans.scale_3)
   )
+
+
 
 
 results |>
