@@ -28,7 +28,7 @@ control <- control_msm(
 
 init$init_attr <- readRDS("./d_init_attr.rds")
 
-wf <- make_em_workflow("restart_point", override = TRUE)
+wf <- make_em_workflow("k_restart_point", override = TRUE)
 
 wf <- add_workflow_step(
   wf_summary = wf,
@@ -37,7 +37,7 @@ wf <- add_workflow_step(
     scenarios_list = NULL,
     output_dir = calib_dir,
     save_pattern = "all",
-    n_rep = 256,
+    n_rep = 128,
     n_cores = max_cores,
     max_array_size = 500,
     setup_lines = hpc_node_setup
