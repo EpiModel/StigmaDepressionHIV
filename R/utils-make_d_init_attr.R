@@ -37,6 +37,22 @@ d_tar$dg2 <- ifelse(is.na(d_tar$diag.status), 0, d_tar$diag.status)
 # sample join and save
 d_final <- sample_join(d_attrs, d_tar, by = c("race", "dg2", "role.class"))
 d_final$dg2 <- NULL
+d_final <- select(
+  d_final,
+  -c(
+    prepClass ,prepElig ,prepStat ,prepStartTime ,prepLastRisk ,
+    prep.start.counter ,part.scrnd ,part.ident ,part.ident.counter ,
+    sexStigmaClass ,mdd.status ,mdd.diag.status ,mdd.diag.time ,
+    mdd.scrn.counter ,mdd.lastscrn.time ,mdd.tx.status ,mdd.txepi.counter ,
+    mdd.txinit.time ,mdd.currtx.tottime ,mdd.currtx.stage ,mdd.lasttx.cumlt ,
+    mdd.suitry.status ,mdd.suitry.counter ,mdd.suitry.time ,mdd.suicompl.status ,
+    mdd.suicompl.time ,mdd.txintv.status ,mdd.txintvinit.time ,mdd.txintv.last.endtime ,
+    mdeCurr ,mdeCurr.starttime ,mde.last.endtime ,mde.counter ,mde.symseverity ,
+    mde.roleimpair ,mdd.everdiag.time ,prep.ind.uai.mono ,prep.ind.uai.nmain ,
+    prep.ind.sti ,prep.ind.uai.conc
+  )
+)
+
 saveRDS(d_final, "d_init_attr.rds")
 
 # d_final |>
