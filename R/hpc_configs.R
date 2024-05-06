@@ -61,7 +61,7 @@ make_em_workflow <- function(wf_name, override = FALSE) {
   wf <- slurmworkflow::create_workflow(
     wf_name = wf_name,
     default_sbatch_opts = list(
-      "partition" = "csde", #  "compute", #
+      "partition" =  "compute", # "ckpt", #
       "account" = "csde",
       "mail-type" = "FAIL",
       "mail-user" = mail_user
