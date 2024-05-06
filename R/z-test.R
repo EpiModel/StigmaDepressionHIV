@@ -5,4 +5,4 @@
 # rct.prob,0.1923077,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
 # uct.prob,0.16,numeric, CPN-gaps appendix 9.3 | calibrated
 
-plogis(qlogis(0.16) + log(1.25))
+plogis(qlogis(0.158) + log(1.25))

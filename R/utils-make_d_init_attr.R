@@ -40,6 +40,7 @@ d_final$dg2 <- NULL
 d_final <- select(
   d_final,
   -c(
+    age, age.grp,
     prepClass ,prepElig ,prepStat ,prepStartTime ,prepLastRisk ,
     prep.start.counter ,part.scrnd ,part.ident ,part.ident.counter ,
     sexStigmaClass ,mdd.status ,mdd.diag.status ,mdd.diag.time ,

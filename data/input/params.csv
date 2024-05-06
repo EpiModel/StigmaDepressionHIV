@@ -178,7 +178,7 @@ mddcoef.race_1,1.066135463,numeric,
 mddcoef.race_2,1.446118104,numeric,
 mddcoef.race_3,1,numeric,
 mddcoef.hiv_1,1,numeric,
-mddcoef.hiv_2,1.25,numeric,formerly 1.09
+mddcoef.hiv_2,1.3,numeric,formerly 1.09
 mde.start.prob_1,0.33,numeric,
 mde.start.prob_2,0.47,numeric,
 mde.symsevgrp.dist_1,0.104,numeric,
