@@ -26,7 +26,7 @@ d_tar <- as_tibble(sim$attr[[1]])
 d_tar <- select(d_tar, -c(starts_with("deg_"))) |>
   mutate(across(
     c(ends_with(".time"), ends_with("infTime"), starts_with("prep.ind."),
-      last.neg.test),
+      last.neg.test, vl.last.usupp, vl.last.supp),
     function(x) x - sim$last_timestep
   ))
 
