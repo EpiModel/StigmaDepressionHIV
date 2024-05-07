@@ -43,36 +43,36 @@ wf <- make_em_workflow("mddtbl2", override = TRUE)
 
 
 # Table 2A ----------------------------------------------------------------------
-# scenarios
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl2A.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl2",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
+# # scenarios
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl2A.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl2",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
 
 # process output
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -91,7 +91,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.3-removefiles_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.3-removefiles_mddtbl2.R",
     args = list(
       ncores = max_cores),
     setup_lines = hpc_node_setup
@@ -136,7 +136,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -155,7 +155,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.3-removefiles_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.3-removefiles_mddtbl2.R",
     args = list(
       ncores = max_cores),
     setup_lines = hpc_node_setup
@@ -200,7 +200,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -219,7 +219,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.3-removefiles_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.3-removefiles_mddtbl2.R",
     args = list(
       ncores = max_cores),
     setup_lines = hpc_node_setup
@@ -264,7 +264,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -283,7 +283,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.3-removefiles_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.3-removefiles_mddtbl2.R",
     args = list(
       ncores = max_cores),
     setup_lines = hpc_node_setup
@@ -328,7 +328,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -347,7 +347,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/42.3-removefiles_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.3-removefiles_mddtbl2.R",
     args = list(
       ncores = max_cores),
     setup_lines = hpc_node_setup
