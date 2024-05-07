@@ -17,7 +17,7 @@ source("R/hpc_configs.R", local = TRUE)
 
 max_cores <- 32
 numsims <- 1 * max_cores
-
+nsteps <- intervention_end
 
 
 # Process ----------------------------------------------------------------------
@@ -31,7 +31,7 @@ source("R/netsim_settings.R", local = TRUE)
 
 #Control settings
 control <- control_msm(
-  nsteps = prep_start + year_steps * 3
+  nsteps = nsteps
 )
 
 
