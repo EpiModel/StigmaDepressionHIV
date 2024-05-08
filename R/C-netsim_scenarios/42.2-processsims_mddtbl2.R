@@ -89,7 +89,7 @@ outcomessims <- get_outcome_sims(fulldata) %>%
          mde.active.prpmddhiv0, mde.active.prpmddhiv1,
 
 
-         #mdd care-related
+         #mhcare-related
          mdd.diagever.prpmddall,
          mdd.diagever.prpmddhiv0, mdd.diagever.prpmddhiv1,
 
@@ -104,6 +104,9 @@ outcomessims <- get_outcome_sims(fulldata) %>%
 
          mdd.txstart.numall, mdd.txcurr.numall, mdd.txelig.numall, mdd.txcurr.prpactiveeverdiag,
          mdd.txcurr.prpactiveeverdiag.race1, mdd.txcurr.prpactiveeverdiag.race2, mdd.txcurr.prpactiveeverdiag.race3,
+         mdd.mhcare.numpcvdneed,
+         mdd.mhcare.numrcvanytx, mdd.mhcare.prppcvd_rcvanytx,
+         mdd.mhcare.numrcvminadeqtx, mdd.mhcare.prppcvd_rcvminadeqtx,
 
          mdd.txstop.numall, mdd.txstop.numremiss, mdd.txstop.numendmainte, mdd.txstop.numltfu, mdd.txstop.numdth,
 
@@ -176,7 +179,7 @@ outcomessims <- get_outcome_sims(fulldata) %>%
          mdd.diagever.prpmddhiv1.yr0, mdd.diagever.prpmddhiv1.yr10,
 
          #Distal impacts: HIV incidence measures
-         incid.cum, nia, pia, incid.yr10, ir100.yr10,
+         ir.yr10, ir2.yr10, incid.cum, nia, pia, incid.yr10, ir100.yr10,
 
          incid.mdd0.cum, incid.mdd0.yr10, mdd.ir100.0.yr10,
          incid.mdd1.cum, incid.mdd1.yr10, mdd.ir100.1.yr10,
