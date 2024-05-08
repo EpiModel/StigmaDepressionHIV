@@ -11,7 +11,7 @@ library(dplyr)
 process_fulldata <- function(file_name, ts) {
 
   # file_name <-sim_files[1]
-  # ts <- 0 #3901 - (5 * 52) + 1
+  # ts <- 3901 - (5 * 52) + 1
 
   # keep only the file name without extension and split around `__`
   name_elts <- fs::path_file(file_name) %>%
@@ -36,9 +36,10 @@ process_fulldata <- function(file_name, ts) {
     rename(sim=sim2) %>%
     mutate(
       tbl0                    = toupper(substr(scenario_name,1,1)),
-      scenario.num            = as.numeric(substr(scenario_name,3,3)),
+      scenario.num            = as.numeric(substr(scenario_name,2,4)),
       scenario.new            = substr(scenario_name,5,nchar(scenario_name))
     ) %>%
+    #select(scenario_name, tbl0, scenario.num, scenario.new)
     mutate(tbl = factor(tbl0, levels=c("A","B","C","D","E"))) %>%
     ungroup() %>%
     mutate(tot.tests.pbt = tot.tests - tot.tests.ibt,
