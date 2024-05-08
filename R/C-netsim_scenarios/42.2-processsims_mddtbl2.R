@@ -6,7 +6,7 @@
 context<-"hpc"
 
 
-source("R/42.1-processfxns_mddtbl2.R")
+source("R/C-netsim_scenarios/42.1-processfxns_mddtbl2.R")
 
 
 sims_dir <- paste0("data/intermediate/scenarios_mddtbl2")
