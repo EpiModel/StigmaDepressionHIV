@@ -72,7 +72,7 @@ process_fulldata <- function(file_name, ts) {
       mde.active.numall, mde.active.prpmdd,
       mde.active.prpmddhiv0, mde.active.prpmddhiv1,
 
-      #mdd care-related
+      #mhcare-related
       mdd.diagever.prpmddall,
       mdd.diagever.prpmddhiv0, mdd.diagever.prpmddhiv1,
 
@@ -87,6 +87,9 @@ process_fulldata <- function(file_name, ts) {
 
       mdd.txstart.numall, mdd.txcurr.numall, mdd.txelig.numall, mdd.txcurr.prpactiveeverdiag,
       mdd.txcurr.prpactiveeverdiag.race1, mdd.txcurr.prpactiveeverdiag.race2, mdd.txcurr.prpactiveeverdiag.race3,
+      mdd.mhcare.numpcvdneed,
+      mdd.mhcare.numrcvanytx, mdd.mhcare.prppcvd_rcvanytx,
+      mdd.mhcare.numrcvminadeqtx, mdd.mhcare.prppcvd_rcvminadeqtx,
 
       mdd.txstop.numall, mdd.txstop.numremiss, mdd.txstop.numendmainte, mdd.txstop.numltfu, mdd.txstop.numdth,
 
@@ -193,7 +196,7 @@ get_cumulative_outcomes <- function(d) {
 
 
 
-#Function 2b: Get mean in yr-1 (process measures) ---------------------------------------
+#Function 2b: Get mean in yr-0 (process measures) ---------------------------------------
 get_yr0_outcomes <- function(d) {
   #d <- alldata
   d %>%
@@ -244,7 +247,7 @@ get_yr10_outcomes <- function(d) {
     select(
       tbl, scenario.num, scenario.new, scenario_name, sim,
       #hiv-related
-      incid,
+      incid, num,
       incid.mdd0, incid.mdd1,
       incid.stigma1, incid.stigma2, incid.stigma3, incid.stigma4,
       contains("ir100"),
@@ -270,9 +273,14 @@ get_yr10_outcomes <- function(d) {
     summarise(
       across(c(starts_with("incid")), ~sum (.x, na.rm = T), .names = "{.col}.yr10"),
       across(c(contains("ir100"),starts_with("hivdiagCov"), starts_with("artCov"),
-               "vSuppCov", starts_with("prepCov"), starts_with("mdd.diagever.prp")),
+               "vSuppCov", starts_with("prepCov"), starts_with("mdd.diagever.prp"),
+               num),
              ~ mean(.x, na.rm = T),
              .names = "{.col}.yr10")
+    ) %>%
+    mutate(
+      ir.yr10 = incid.yr10 / 10000 * 100,
+      ir2.yr10 = incid.yr10 / num.yr10 * 100
     ) %>%
     select(tbl, scenario.num, scenario.new, scenario_name, sim, ends_with(".yr10"))
 }
