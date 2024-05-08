@@ -186,7 +186,7 @@ outcomessims <- get_outcome_sims(fulldata) %>%
          incid.stigma3.cum, incid.stigma3.yr10, stigma.ir100.3.yr10,
          incid.stigma4.cum, incid.stigma4.yr10, stigma.ir100.4.yr10
   )
-saveRDS(outcomes_sims, paste0(save_dir, "/outcomessims_mddtbl2", tblnam, ".rds"))
+saveRDS(outcomessims, paste0(save_dir, "/outcomessims_mddtbl2", tblnam, ".rds"))
 
 
 
