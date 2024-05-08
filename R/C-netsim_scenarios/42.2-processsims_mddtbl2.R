@@ -176,7 +176,7 @@ outcomessims <- get_outcome_sims(fulldata) %>%
          mdd.diagever.prpmddhiv1.yr0, mdd.diagever.prpmddhiv1.yr10,
 
          #Distal impacts: HIV incidence measures
-         incid.cum, incid.yr10, ir100.yr10,
+         incid.cum, nia, pia, incid.yr10, ir100.yr10,
 
          incid.mdd0.cum, incid.mdd0.yr10, mdd.ir100.0.yr10,
          incid.mdd1.cum, incid.mdd1.yr10, mdd.ir100.1.yr10,
