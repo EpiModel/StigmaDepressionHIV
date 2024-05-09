@@ -42,7 +42,7 @@ wf <- make_em_workflow("mddtbl2", override = TRUE)
 
 
 
-# Table 2A ----------------------------------------------------------------------
+#Table 2A ----------------------------------------------------------------------
 # # scenarios
 # scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl2A.csv")
 # scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
