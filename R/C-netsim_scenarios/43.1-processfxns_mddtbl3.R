@@ -289,14 +289,26 @@ get_yr10_outcomes <- function(d) {
 
 #Function 2c: Get nia, pia    ----------------------------------------------------------
 get_niapiannt <- function(d) {
+
+  #d <- readRDS(paste0(save_dir, "/fulldata_mddtbl3B.rds"))
+  # d0 <- d %>%
+  #   filter(time > 5 * 52) %>%
+  #   filter(scenario.new == "base") %>%
+  #   select(tbl, scenario.num, scenario.new, scenario_name, sim, time, incid) %>%
+  #   group_by(tbl, scenario.num, scenario.new, scenario_name, sim) %>%
+  #   summarise(across(c(incid), ~ sum (.x, na.rm = T)))
+  # base_incid <- median(d0$incid)
+
   d %>%
     filter(time > 5 * 52) %>%
     select(
       tbl, scenario.num, scenario.new, scenario_name, sim, time,
-      incid, incid.mdd0, incid.mdd1, mdd.txcurr.numall, mdd.mhcare.numrcvanytx
+      incid, incid.mdd0, incid.mdd1,
+      mdd.txcurr.numall, mdd.mhcare.numrcvanytx, mdd.txstart.numall
     ) %>%
     group_by(tbl, scenario.num, scenario.new, scenario_name, sim) %>%
-    summarise(across(c(incid, incid.mdd0, incid.mdd1, mdd.txcurr.numall, mdd.mhcare.numrcvanytx),
+    summarise(across(c(incid, incid.mdd0, incid.mdd1,
+                       mdd.txcurr.numall, mdd.mhcare.numrcvanytx, mdd.txstart.numall),
                      ~ sum(.x, na.rm = TRUE)))  %>%
     arrange(tbl, sim, scenario.num) %>%
     group_by(tbl, sim) %>%
@@ -305,10 +317,12 @@ get_niapiannt <- function(d) {
       nia = base_incid - incid,
       pia = (base_incid - incid) / base_incid
     ) %>%
-    mutate(nnt1 = mdd.txcurr.numall / nia,
-           nnt2 = mdd.mhcare.numrcvanytx / nia) %>%
+    mutate(nnt_txcurr = mdd.txcurr.numall / nia,
+           nnt_anytx = mdd.mhcare.numrcvanytx / nia,
+           nnt_txstart = mdd.txstart.numall / nia) %>%
     ungroup() %>%
-    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia, nnt1, nnt2)
+    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia,
+           nnt_txcurr, nnt_anytx, nnt_txstart)
 }
 
 
