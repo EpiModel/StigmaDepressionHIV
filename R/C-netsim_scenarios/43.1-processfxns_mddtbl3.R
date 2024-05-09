@@ -293,10 +293,11 @@ get_niapiannt <- function(d) {
     filter(time > 5 * 52) %>%
     select(
       tbl, scenario.num, scenario.new, scenario_name, sim, time,
-      incid, incid.mdd0, incid.mdd1, mdd.txcurr.numall
+      incid, incid.mdd0, incid.mdd1, mdd.txcurr.numall, mdd.mhcare.numrcvanytx
     ) %>%
     group_by(tbl, scenario.num, scenario.new, scenario_name, sim) %>%
-    summarise(across(c(incid, incid.mdd0, incid.mdd1), ~ sum(.x, na.rm = TRUE)))  %>%
+    summarise(across(c(incid, incid.mdd0, incid.mdd1, mdd.txcurr.numall, mdd.mhcare.numrcvanytx),
+                     ~ sum(.x, na.rm = TRUE)))  %>%
     arrange(tbl, sim, scenario.num) %>%
     group_by(tbl, sim) %>%
     mutate(base_incid = incid[1]) %>%
@@ -304,9 +305,10 @@ get_niapiannt <- function(d) {
       nia = base_incid - incid,
       pia = (base_incid - incid) / base_incid
     ) %>%
-    mutate(nnt = mdd.txcurr.numall / nia) %>%
+    mutate(nnt1 = mdd.txcurr.numall / nia,
+           nnt2 = mdd.mhcare.numrcvanytx / nia) %>%
     ungroup() %>%
-    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia, nnt)
+    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia, nnt1, nnt2)
 }
 
 
