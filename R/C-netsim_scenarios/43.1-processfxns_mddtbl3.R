@@ -306,7 +306,7 @@ get_niapiannt <- function(d) {
     ) %>%
     mutate(nnt = mdd.txcurr.numall / nia) %>%
     ungroup() %>%
-    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia)
+    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia, nnt)
 }
 
 
@@ -367,7 +367,7 @@ get_sumave_outcomes <- function(d) {
 get_outcome_sims <- function(d){
 
   d_cum       <- get_cumulative_outcomes(d)
-  d_niapia    <- get_niapiannt(d)
+  d_niapiannt    <- get_niapiannt(d)
   d_yr0       <- get_yr0_outcomes(d)
   d_yr10      <- get_yr10_outcomes(d)
   d_yrMu      <- get_yrMu_outcomes(d)
@@ -376,7 +376,7 @@ get_outcome_sims <- function(d){
   #merge files
   d_join0a <- left_join(
     d_cum,
-    d_niapia,
+    d_niapiannt,
     by = c("tbl","scenario.num", "scenario.new","scenario_name", "sim")
   )
 
