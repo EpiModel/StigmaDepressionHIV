@@ -54,7 +54,7 @@ intervds <- future.apply::future_lapply(
 #Merge all batches
 fulldata <- bind_rows(intervds)
 
-tblnam <- fulldata$tbl[2]
+tblnam <- fulldata$tbl[nrow(fulldata)- 10]
 
 saveRDS(fulldata, paste0(save_dir, "/fulldata_mddtbl3", tblnam,".rds"))
 
