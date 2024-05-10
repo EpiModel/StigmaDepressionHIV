@@ -47,10 +47,8 @@ make_model_fn <- function(restart, calib_steps) {
     scenario <- EpiModelHPC::swfcalib_proposal_to_scenario(proposal)
     param_sc <- EpiModel::use_scenario(param, scenario)
 
-################# WARNING!!! ###########
-    # param_sc$rgc.prob <- plogis(qlogis(param_sc$ugc.prob) + log(1.25))
-    # param_sc$rct.prob <- plogis(qlogis(param_sc$uct.prob) + log(1.25))
-################# WARNING!!! ###########
+    param_sc$rgc.prob <- plogis(qlogis(param_sc$ugc.prob) + log(1.25))
+    param_sc$rct.prob <- plogis(qlogis(param_sc$uct.prob) + log(1.25))
 
     # Simulation and processing --------------------------------------------------
     sim <- netsim(est, param_sc, init, control)

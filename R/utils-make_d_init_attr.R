@@ -74,12 +74,12 @@ saveRDS(d_final, "d_init_attr.rds")
 #   )
 #
 
-library(dplyr)
-library(ggplot2)
-d  <- readRDS("d_init_attr.rds")
-
-d |>
-  group_by(race) |>
-  summarise(
-    cc.prep = sum(prepStat, na.rm = TRUE) / sum(prepElig, na.rm = TRUE)
-  )
+# library(dplyr)
+# library(ggplot2)
+# d  <- readRDS("d_init_attr.rds")
+#
+# d |>
+#   group_by(race) |>
+#   summarise(
+#     cc.prep = sum(prepStat, na.rm = TRUE) / sum(prepElig, na.rm = TRUE)
+#   )
