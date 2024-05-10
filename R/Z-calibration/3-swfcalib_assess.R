@@ -26,6 +26,7 @@ swfcalib::render_assessment(fs::path(swfcalib_dir, "assessments.rds"))
 # Results ----------------------------------------------------------------------
 # results <- readRDS(fs::path(swfcalib_dir, "results.rds"))
 targets <- EpiModelHIV::get_calibration_targets()
+
 results <- readRDS(fs::path(swfcalib_dir, "results.rds"))
 proposals <- readRDS(fs::path(swfcalib_dir, "proposals.rds"))
 
@@ -54,6 +55,7 @@ ggplot(results, aes(
   )) +
   geom_point() +
   geom_hline(yintercept = c(targets[["ir100.ct"]]))
+
 
 ggplot(results, aes(
     x = hiv.test.rate_1,

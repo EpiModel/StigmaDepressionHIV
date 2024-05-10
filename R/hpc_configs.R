@@ -22,6 +22,7 @@ make_em_workflow <- function(wf_name, override = FALSE) {
     default_sbatch_opts = list(
       "partition" = "epimodel",
       # "partition" = "preemptable",
+
       # "account" = "csde",
       "mail-type" = "FAIL",
       "mail-user" = mail_user
