@@ -41,6 +41,8 @@ make_model_fn <- function(restart, calib_steps) {
       )
     }
 
+    init$init_attr <- readRDS("./d_init_attr.rds")
+
     # Proposal to scenario -------------------------------------------------------
     scenario <- EpiModelHPC::swfcalib_proposal_to_scenario(proposal)
     param_sc <- EpiModel::use_scenario(param, scenario)
@@ -55,7 +57,7 @@ make_model_fn <- function(restart, calib_steps) {
     as_tibble(sim) |>
       mutate_calibration_targets() |>
       filter(time >= max(time) - calib_steps) |>
-      select(c(sim, any_of(names(targets)))) |>
+      select(c(sim, any_of(names(targets)), num)) |>
       group_by(sim) |>
       summarise(across(everything(), ~ mean(.x, na.rm = TRUE)), .groups = "drop")
   }

@@ -5,7 +5,7 @@
 
 if (exists("hpc_context") && hpc_context) {
   context <- "hpc"
-  networks_size   <- 100 * 1e3
+  networks_size   <- 10 * 1e3
   est_cores <- 10
 
   control_ergm <- ergm::control.ergm(
