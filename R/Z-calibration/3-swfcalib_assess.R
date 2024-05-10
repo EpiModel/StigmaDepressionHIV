@@ -48,12 +48,12 @@ results |>
 # targets_val = c(0.829, 0.898, 0.881),
 # params = paste0("tx.init.rate_", 1:3),
 ggplot(results, aes(
-    x = ugc.prob,
-    y = ir100.gc,
+    x = uct.prob,
+    y = ir100.ct,
     col = as.factor(.iteration)
   )) +
   geom_point() +
-  geom_hline(yintercept = c())
+  geom_hline(yintercept = c(targets[["ir100.ct"]]))
 
 ggplot(results, aes(
     x = hiv.test.rate_1,
