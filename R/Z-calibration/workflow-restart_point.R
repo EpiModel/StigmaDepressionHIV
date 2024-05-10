@@ -15,20 +15,20 @@ hpc_context <- TRUE
 source("R/shared_variables.R", local = TRUE)
 source("R/Z-calibration/z-context.R", local = TRUE)
 source("R/hpc_configs.R", local = TRUE)
-max_cores <- 32
+max_cores <- 8
 
 # Process ----------------------------------------------------------------------
 source("R/netsim_settings.R", local = TRUE)
 
 # Control settings
 control <- control_msm(
-  nsteps = calibration_end + 20 * year_steps,
+  nsteps = calibration_end,
   .tracker.list = EpiModelHIV::make_calibration_trackers()
 )
 
 init$init_attr <- readRDS("./d_init_attr.rds")
 
-wf <- make_em_workflow("k_restart_point", override = TRUE)
+wf <- make_em_workflow("restart_point", override = TRUE)
 
 wf <- add_workflow_step(
   wf_summary = wf,
@@ -37,7 +37,7 @@ wf <- add_workflow_step(
     scenarios_list = NULL,
     output_dir = calib_dir,
     save_pattern = "all",
-    n_rep = 256,
+    n_rep = 512,
     n_cores = max_cores,
     max_array_size = 500,
     setup_lines = hpc_node_setup
@@ -68,19 +68,19 @@ wf <- add_workflow_step(
   )
 )
 
-# wf <- add_workflow_step(
-#   wf_summary = wf,
-#   step_tmpl = step_tmpl_do_call_script(
-#     r_script = "R/Z-calibration/choose_restart.R",
-#     args = list(hpc_context = TRUE),
-#     setup_lines = hpc_node_setup
-#   ),
-#   sbatch_opts = list(
-#     "cpus-per-task" = max_cores,
-#     "time" = "02:00:00",
-#     "mem-per-cpu" = "5G"
-#   )
-# )
+wf <- add_workflow_step(
+  wf_summary = wf,
+  step_tmpl = step_tmpl_do_call_script(
+    r_script = "R/Z-calibration/choose_restart.R",
+    args = list(hpc_context = TRUE),
+    setup_lines = hpc_node_setup
+  ),
+  sbatch_opts = list(
+    "cpus-per-task" = max_cores,
+    "time" = "02:00:00",
+    "mem-per-cpu" = "5G"
+  )
+)
 
 wf <- add_workflow_step(
   wf_summary = wf,

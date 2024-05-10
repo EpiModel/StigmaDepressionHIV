@@ -13,7 +13,6 @@ hpc_node_setup <- c(
   "spack load git@2.35.1"
 )
 
-
 make_em_workflow <- function(wf_name, override = FALSE) {
   wf_path <- paste0("workflows/", wf_name)
   if (override && fs::dir_exists(wf_path)) fs::dir_delete(wf_path)
@@ -21,7 +20,8 @@ make_em_workflow <- function(wf_name, override = FALSE) {
   wf <- slurmworkflow::create_workflow(
     wf_name = wf_name,
     default_sbatch_opts = list(
-      "partition" = "epimodel", # "preemptable", #
+      # "partition" = "epimodel",
+      "partition" = "preemptable",
       # "account" = "csde",
       "mail-type" = "FAIL",
       "mail-user" = mail_user
