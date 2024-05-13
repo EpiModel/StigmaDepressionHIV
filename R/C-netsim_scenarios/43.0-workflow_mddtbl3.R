@@ -27,7 +27,7 @@ nsteps <- intervention_end
 
 
 # Necessary files
-prep_start <- 2 * year_steps
+#prep_start <- 2 * year_steps
 source("R/netsim_settings.R", local = TRUE)
 
 
