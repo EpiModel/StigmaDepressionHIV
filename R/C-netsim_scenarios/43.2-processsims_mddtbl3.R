@@ -62,7 +62,6 @@ saveRDS(fulldata, paste0(save_dir, "/fulldata_mddtbl3", tblnam,".rds"))
 
 
 #B. Get outcome_sims  data  ------------------------------------------------------------
-#fulldata <- readRDS(paste0(save_dir, "/fulldata_mddtbl3B.rds"))
 outcomessims <- get_outcome_sims(fulldata) %>%
   select(tbl, scenario.num, scenario.new, scenario_name,sim,
          #Proximal measures: stigma & mde cascade
