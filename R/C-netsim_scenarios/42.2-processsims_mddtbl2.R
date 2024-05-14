@@ -62,6 +62,9 @@ saveRDS(fulldata, paste0(save_dir, "/fulldata_mddtbl2", tblnam,".rds"))
 
 
 #B. Get outcome_sims  data  ------------------------------------------------------------
+# output_dir <- paste0("C:/Users/Uonwubi/OneDrive - Emory University/Desktop/Personal/RSPH EPI Docs/RA2/GitRepos/StigmaDepressionHIV_real/data/intermediate/processed_tbl2_05092024")
+# fulldata<-readRDS(paste(output_dir,'/fulldata_mddtbl2B.rds', sep=""))
+
 outcomessims <- get_outcome_sims(fulldata) %>%
   select(tbl, scenario.num, scenario.new, scenario_name,sim,
          #Proximal measures: stigma & mde cascade
@@ -181,8 +184,8 @@ outcomessims <- get_outcome_sims(fulldata) %>%
          #Distal impacts: HIV incidence measures
          ir.yr10, ir2.yr10, incid.cum, nia, pia, incid.yr10, ir100.yr10,
 
-         incid.mdd0.cum, incid.mdd0.yr10, mdd.ir100.0.yr10,
-         incid.mdd1.cum, incid.mdd1.yr10, mdd.ir100.1.yr10,
+         incid.mdd0.cum, nia.mdd0, pia.mdd0, incid.mdd0.yr10, mdd.ir100.0.yr10,
+         incid.mdd1.cum, nia.mdd1, pia.mdd1, incid.mdd1.yr10, mdd.ir100.1.yr10,
 
          incid.stigma1.cum, incid.stigma1.yr10, stigma.ir100.1.yr10,
          incid.stigma2.cum, incid.stigma2.yr10, stigma.ir100.2.yr10,
