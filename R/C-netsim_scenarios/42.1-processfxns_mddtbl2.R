@@ -187,11 +187,17 @@ get_cumulative_outcomes <- function(d) {
     select(tbl, scenario.num, scenario.new, scenario_name, sim, time,
            incid,
            incid.mdd0, incid.mdd1,
-           incid.stigma1, incid.stigma2, incid.stigma3, incid.stigma4) %>%
+           incid.stigma1, incid.stigma2, incid.stigma3, incid.stigma4,
+           mdd.suitry.numall,
+           mdd.suitry.numhiv0, mdd.suitry.numhiv1,
+           mdd.suitry.numsev1, mdd.suitry.numsev2, mdd.suitry.numsev3, mdd.suitry.numsev4,
+           mdd.eligsuicompl.numall, mdd.suicompl.numall) %>%
     group_by(tbl, scenario.num, scenario.new, scenario_name, sim) %>%
     summarise(across(c(starts_with("incid")),
                      ~ sum(.x, na.rm = TRUE),
-                     .names = "{.col}.cum"))
+                     .names = "{.col}.cum"),
+              across(c(contains("sui")),
+                     ~ sum(.x, na.rm = TRUE)))
 }
 
 
@@ -299,13 +305,22 @@ get_niapia <- function(d) {
     summarise(across(c(incid, incid.mdd0, incid.mdd1), ~ sum(.x, na.rm = TRUE)))  %>%
     arrange(tbl, sim, scenario.num) %>%
     group_by(tbl, sim) %>%
-    mutate(base_incid = incid[1]) %>%
+    mutate(base_incid = incid[1],
+           base_incid_mdd0 = incid.mdd0[1],
+           base_incid_mdd1 = incid.mdd1[1]) %>%
     mutate(
       nia = base_incid - incid,
-      pia = (base_incid - incid) / base_incid
+      pia = (base_incid - incid) / base_incid,
+
+      nia.mdd0 = base_incid_mdd0 - incid.mdd0,
+      pia.mdd0 = (base_incid_mdd0 - incid.mdd0) / base_incid_mdd0,
+
+      nia.mdd1 = base_incid_mdd1 - incid.mdd1,
+      pia.mdd1 = (base_incid_mdd1 - incid.mdd1) / base_incid_mdd1
     ) %>%
     ungroup() %>%
-    select(tbl, scenario.num, scenario.new, scenario_name, sim, nia, pia)
+    select(tbl, scenario.num, scenario.new, scenario_name, sim,
+           starts_with("nia"), starts_with("pia"),)
 }
 
 
@@ -356,6 +371,10 @@ get_sumave_outcomes <- function(d) {
     ) %>%
     # select(-c(mde.active.numall, mdd.diagat.numall, mdd.txstart.numall, mdd.txcurr.numall,
     #           mdd.ai.numall, mdd.uai.numall)) %>%
+    select(-c(mdd.suitry.numall,
+              mdd.suitry.numhiv0, mdd.suitry.numhiv1,
+              mdd.suitry.numsev1, mdd.suitry.numsev2, mdd.suitry.numsev3, mdd.suitry.numsev4,
+              mdd.eligsuicompl.numall, mdd.suicompl.numall)) %>%
     group_by(tbl, scenario.num, scenario.new, scenario_name, sim) %>%
     summarise(across(everything(),~ sum(.x, na.rm = T) / 10))
 }
