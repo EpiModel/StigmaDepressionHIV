@@ -866,3 +866,10 @@ wf <- add_workflow_step(
   )
 )
 
+
+# to send workflows to the HPC (Run in R terminal)
+# scp -r workflows/mddfig sph:projects/epimodel/uonwubi/PartnerServiceYr3/workflows
+
+# # to execute jobs
+# chmod +x workflows/mddfig/start_workflow.sh
+# ./workflows/mddfig/start_workflow.sh
