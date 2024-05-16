@@ -70,7 +70,7 @@ process_fulldata <- function(file_name, ts) {
       scenario.new            = substr(scenario_name,5,nchar(scenario_name))
     ) %>%
     #select(scenario_name, tbl0, scenario.num, scenario.new)
-    mutate(tbl = factor(tbl0, levels=c("A","B","C","D","E"))) %>%
+    mutate(tbl = factor(tbl0, levels=c("A","C","E"))) %>%
     ungroup() %>%
     select(
       tbl, scenario.num, scenario.new, scenario_name, batch_number, sim, time,
@@ -89,7 +89,7 @@ process_fulldata <- function(file_name, ts) {
 
 intervds <- future.apply::future_lapply(
   sim_files,
-  process_sim,
+  process_fulldata,
   ts = 3901 - (5 * 52) + 1   #gets data from 5 years prior to intervention start
 )
 
