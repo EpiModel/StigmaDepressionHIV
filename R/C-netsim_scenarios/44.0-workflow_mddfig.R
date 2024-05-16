@@ -53,7 +53,7 @@ wf <- add_workflow_step(
   step_tmpl = step_tmpl_netsim_scenarios(
     path_to_est, param, init, control,
     scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddfig3",
+    output_dir = "data/intermediate/scenarios_mddfig",
     save_pattern = "all",
     n_rep = numsims,
     n_cores = max_cores,
