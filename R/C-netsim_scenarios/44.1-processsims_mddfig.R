@@ -96,7 +96,7 @@ intervds <- future.apply::future_lapply(
 
 #Merge batches
 fulldata <- bind_rows(intervds) %>%
-  select(tbl, scenario.num, scenario_name, sim, time, incid, found.indexes.all) %>%
+  select(tbl, scenario.num, scenario_name, sim, time, incid) %>%
   mutate(scenario.new = stringr::str_split_i(scenario_name, "_", 1),
          psval = stringr::str_split_i(scenario_name, "_", 4))
 
@@ -122,17 +122,16 @@ if(fulldata$scenario_name [1] != "a001base"){
   base_df <- readRDS(paste0(save_dir, "/fulldata_basemodel.rds", sep="")) %>%
     filter(time > 5 * 52) %>%
     group_by(tbl, scenario.num, scenario_name, sim) %>%
-    summarise(across(c(incid, found.indexes.all), ~ sum(.x, na.rm = TRUE))) %>%
+    summarise(across(c(incid), ~ sum(.x, na.rm = TRUE))) %>%
     ungroup() %>%
-    summarise(base_incid = median(incid),
-              base_foundindexes = median(found.indexes.all))
+    summarise(base_incid = median(incid))
 
   base_incid <- base_df$base_incid
 
   piatbl <- fulldata %>%
     filter(time > 5 * 52) %>%
     group_by(tbl, scenario.num, scenario_name, sim) %>%
-    summarise(across(c(incid, found.indexes.all), ~ sum(.x, na.rm = TRUE))) %>%
+    summarise(across(c(incid), ~ sum(.x, na.rm = TRUE))) %>%
     mutate(pia = (base_incid - incid) / base_incid) %>%
     ungroup() %>%
     mutate(across(where(is.numeric), ~round (., 6))) %>% ungroup()%>%
