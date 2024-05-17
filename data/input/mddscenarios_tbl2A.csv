@@ -11,7 +11,7 @@ a009mdddiagprobprepuptk75,3901,Inf,Inf,0.47,0.45,0.75,0,0.397,0.336,0.54,0,0,0
 a010mdddiagprobprepuptk100,3901,Inf,Inf,0.47,0.45,1,0,0.397,0.336,0.54,0,0,0
 a011mddtxinitprobreg11,3901,Inf,Inf,0.47,0.45,0,0,0.4367,0.3696,0.594,0,0,0
 a012mddtxinitprobreg15,3901,Inf,Inf,0.47,0.45,0,0,0.5955,0.504,0.81,0,0,0
-a013mddtxinitprobreg20,3901,Inf,Inf,0.47,0.45,0,0,0.794,0.672,1.08,0,0,0
+a013mddtxinitprobreg20,3901,Inf,Inf,0.47,0.45,0,0,0.794,0.672,1,0,0,0
 a014mddtxinitprobreg100,3901,Inf,Inf,0.47,0.45,0,0,1,1,1,0,0,0
 a015mddtxinitprobinterv10,3901,Inf,Inf,0.47,0.45,0,0,0.397,0.336,0.54,0.1,0.1,0.1
 a016mddtxinitprobinterv25,3901,Inf,Inf,0.47,0.45,0,0,0.397,0.336,0.54,0.25,0.25,0.25
