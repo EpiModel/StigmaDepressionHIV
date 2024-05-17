@@ -18,7 +18,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 source("R/hpc_configs.R", local = TRUE)
 
 max_cores <- 32
-numsims <- 1 * max_cores
+numsims <- 14 * max_cores
 nsteps <- intervention_end
 
 
@@ -72,7 +72,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.1-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -136,7 +136,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.1-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -200,7 +200,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.1-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -264,7 +264,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.1-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
@@ -328,7 +328,7 @@ wf <- add_workflow_step(
 wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/42.2-processsims_mddtbl2.R",
+    r_script = "R/C-netsim_scenarios/42.1-processsims_mddtbl2.R",
     args = list(
       ncores = max_cores,
       nsteps = 52
