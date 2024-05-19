@@ -18,7 +18,7 @@ source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 source("R/hpc_configs.R", local = TRUE)
 
 max_cores <- 32
-numsims <- 10 * max_cores
+numsims <- 7 * max_cores
 nsteps <- intervention_end
 
 
