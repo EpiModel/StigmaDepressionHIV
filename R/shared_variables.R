@@ -10,7 +10,7 @@ EMHIVp_dir    <- "../EpiModelHIV-p.git/StigmaDepressionHIV_real"
 time_unit  <- 7               # number of days in a time step
 year_steps <- 364 / time_unit # number of time steps in a year
 
-calibration_end    <- 65 * year_steps
+calibration_end    <- 70 * year_steps
 restart_time       <- calibration_end + 1
 prep_start         <- 0
 intervention_start <- restart_time + 10 * year_steps
