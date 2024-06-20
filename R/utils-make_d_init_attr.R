@@ -20,7 +20,8 @@ names(d_attrs) <- otha
 d_attrs <- as_tibble(d_attrs)
 
 # prepare the "target" population
-sim <- readRDS("./data/intermediate/calibration/sim__empty_scenario__1.rds")
+# sim <- readRDS("./data/intermediate/calibration/sim__empty_scenario__1.rds")
+sim <- readRDS("./data/intermediate/estimates/restart-hpc.rds")
 d_tar <- as_tibble(sim$attr[[1]])
 
 d_tar <- select(d_tar, -c(starts_with("deg_"))) |>
