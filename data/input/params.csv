@@ -18,9 +18,9 @@ tt.durable.supp.prob_3,0,numeric,
 tx.init.rate_1,0.3013422,numeric,
 tx.init.rate_2,0.3718246,numeric,
 tx.init.rate_3,0.3514318,numeric,
-tx.halt.partial.rate_1,0.004783209,numeric,
-tx.halt.partial.rate_2,0.004444078,numeric,
-tx.halt.partial.rate_3,0.002959493,numeric,
+tx.halt.partial.rate_1,0.004817,numeric,
+tx.halt.partial.rate_2,0.004475,numeric,
+tx.halt.partial.rate_3,0.002982,numeric,
 tx.halt.full.or_1,0.45,numeric,
 tx.halt.full.or_2,0.45,numeric,
 tx.halt.full.or_3,0.45,numeric,
@@ -69,10 +69,10 @@ hiv.circ.prob_3,0.918,numeric,
 acts.aids.vl,5.75,numeric,
 acts.scale,1,numeric,
 cond.scale,1,numeric,
-rgc.prob,0.2894,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
-ugc.prob,0.2457,numeric,CPN-gaps appendix 9.4 | calibrated
-rct.prob,0.2104,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
-uct.prob,0.1757,numeric, CPN-gaps appendix 9.3 | calibrated
+rgc.prob,0.291435,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
+ugc.prob,0.247579,numeric,CPN-gaps appendix 9.4 | calibrated
+rct.prob,0.210666,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
+uct.prob,0.175946,numeric, CPN-gaps appendix 9.3 | calibrated
 rgc.sympt.prob,0.1,numeric, CPN-aps 9.3
 ugc.sympt.prob,0.9333,numeric, CPN-Gaps10.3
 rct.sympt.prob,0.1,numeric, CPN- gaps 10.2
