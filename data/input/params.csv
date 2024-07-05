@@ -1,7 +1,7 @@
 param,value,type,source
-hiv.test.rate_1,0.002723255,numeric,
-hiv.test.rate_2,0.002307858,numeric,
-hiv.test.rate_3,0.002917793,numeric,
+hiv.test.rate_1,0.00292,numeric,
+hiv.test.rate_2,0.00260,numeric,
+hiv.test.rate_3,0.00313,numeric,
 hiv.test.late.prob_1,0,numeric,
 hiv.test.late.prob_2,0,numeric,
 hiv.test.late.prob_3,0,numeric,
@@ -18,9 +18,9 @@ tt.durable.supp.prob_3,0,numeric,
 tx.init.rate_1,0.3013422,numeric,
 tx.init.rate_2,0.3718246,numeric,
 tx.init.rate_3,0.3514318,numeric,
-tx.halt.partial.rate_1,0.004783209,numeric,
-tx.halt.partial.rate_2,0.004444078,numeric,
-tx.halt.partial.rate_3,0.002959493,numeric,
+tx.halt.partial.rate_1,0.004817,numeric,
+tx.halt.partial.rate_2,0.004475,numeric,
+tx.halt.partial.rate_3,0.002982,numeric,
 tx.halt.full.or_1,0.45,numeric,
 tx.halt.full.or_2,0.45,numeric,
 tx.halt.full.or_3,0.45,numeric,
@@ -69,10 +69,10 @@ hiv.circ.prob_3,0.918,numeric,
 acts.aids.vl,5.75,numeric,
 acts.scale,1,numeric,
 cond.scale,1,numeric,
-rgc.prob,0.2634695,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
-ugc.prob,0.2225,numeric,CPN-gaps appendix 9.4 | calibrated
-rct.prob,0.1899952,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
-uct.prob,0.158,numeric, CPN-gaps appendix 9.3 | calibrated
+rgc.prob,0.291435,numeric, CPN-plogis(qlogis(0.25546) + log(1.25)) #0.357;  # gaps appendix 9.4
+ugc.prob,0.247579,numeric,CPN-gaps appendix 9.4 | calibrated
+rct.prob,0.210666,numeric, CPN-plogis(qlogis(1714429) + log(1.25)) #0.3216; # gaps appendix 9.3
+uct.prob,0.175946,numeric, CPN-gaps appendix 9.3 | calibrated
 rgc.sympt.prob,0.1,numeric, CPN-aps 9.3
 ugc.sympt.prob,0.9333,numeric, CPN-Gaps10.3
 rct.sympt.prob,0.1,numeric, CPN- gaps 10.2
@@ -99,9 +99,9 @@ sti.cond.eff.or,0.95,numeric,CPN
 sti.cond.fail.or_1,0.39,numeric,CPN
 sti.cond.fail.or_2,0.3,numeric,CPN
 sti.cond.fail.or_3,0.21,numeric,CPN
-hiv.trans.scale_1,3.1919940,numeric,
-hiv.trans.scale_2,0.4656480,numeric,
-hiv.trans.scale_3,0.4582657,numeric,
+hiv.trans.scale_1,3.389432,numeric,
+hiv.trans.scale_2,0.546771,numeric,
+hiv.trans.scale_3,0.447358,numeric,
 hiv.rgc.or,2.78,numeric,
 hiv.ugc.or,1.73,numeric,
 hiv.rct.or,2.78,numeric,
@@ -196,7 +196,7 @@ mde.spontres.int_4,23.1,numeric,
 mde.recurr.int_1,76,numeric,
 mde.recurr.int_2,131.6,numeric,
 mdd.diag.gen.prob_1,0.227,numeric,
-mdd.diag.gen.prob_2,0.09,numeric,
+mdd.diag.gen.prob_2,0.1,numeric,was 0.09
 mdd.txinit.prob.reg_1,0.397,numeric,
 mdd.txinit.prob.reg_2,0.336,numeric,
 mdd.txinit.prob.reg_3,0.54,numeric,
