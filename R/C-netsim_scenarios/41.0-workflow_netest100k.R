@@ -11,7 +11,6 @@ library(EpiModelHIV)
 library(dplyr)
 
 hpc_context <- TRUE
-partition <- "epimodel"
 
 source("R/hpc_configs.R", local = TRUE)
 
