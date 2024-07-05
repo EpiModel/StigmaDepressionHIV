@@ -25,7 +25,6 @@ max_cores <- 32
 wf <- make_em_workflow("networks", override = TRUE)
 
 
-
 #Estimate main, casual and one-off networks  -------------------------------
 wf <- add_workflow_step(
   wf_summary = wf,
