@@ -8,7 +8,7 @@
 library(ARTnet)
 library(EpiModelHIV)
 
-hpc_context <- TRUE
+#hpc_context <- TRUE
 
 source("R/shared_variables.R", local = TRUE)
 source("R/A-networks/z-context.R", local = TRUE)
