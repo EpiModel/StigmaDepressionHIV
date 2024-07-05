@@ -1,6 +1,0 @@
-.scenario.id,.at,mhefx.start,mh.scrninterv.start,mddscrnuptk.pstat.prob,mddscrnuptk.pind.prob,mh.txinterv.start,mh.stigtxefx.uai,mh.stigtxefx.hivtst,mh.stigtxefx.prepinit,mh.stigtxefx.prephalt
-sc0_base,0,0,Inf,0,0,Inf,0,0,0,0
-sc1_scrn1,0,0,3901,0.5,0,Inf,0,0,0,0
-sc2_scrn2,0,0,3901,0,0.5,Inf,0,0,0,0
-sc3_txinterv1,0,0,3901,0,0.5,3901,0.6,1.6,1.6,0.6
-sc4_txinterv2,0,0,3901,0,0.5,3901,0.01,2,2,0.01
