@@ -13,8 +13,6 @@ library(dplyr)
 hpc_context <- TRUE
 partition <- "epimodel"
 
-source("R/shared_variables.R", local = TRUE)
-source("R/C-netsim_scenarios/z-context.R", local = TRUE)
 source("R/hpc_configs.R", local = TRUE)
 
 
