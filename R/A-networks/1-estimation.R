@@ -11,6 +11,9 @@ library(EpiModelHIV)
 source("R/shared_variables.R", local = TRUE)
 source("R/A-networks/z-context.R", local = TRUE)
 
+print(context)
+print(networks_size)
+
 # Process ----------------------------------------------------------------------
 
 # Create the shared objects required by the project
