@@ -6,7 +6,7 @@
 sims_dir <- paste0("data/intermediate/scenarios_mddtbl2")
 
 all_files <- dir(path = sims_dir, pattern = "^sim__.*rds$")
-files_to_keep <- dir(path = sims_dir, pattern = "^sim__a001.*rds$")
+files_to_keep <- dir(path = sims_dir, pattern = "^sim__.*001.*rds$")
 files_to_delete1 <- setdiff(all_files, files_to_keep)
 
 file.remove(file.path(sims_dir, files_to_delete1))
