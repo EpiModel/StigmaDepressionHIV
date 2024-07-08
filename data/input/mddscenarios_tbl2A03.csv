@@ -1,0 +1,6 @@
+".scenario.id",".at","mh.scrninterv.start","mh.txinterv.start","mdd.diag.gen.prob_1","mdd.diag.gen.prob_2","mddscrnuptk.pstat.prob","mddscrnuptk.pind.prob","mdd.txinit.prob.reg_1","mdd.txinit.prob.reg_2","mdd.txinit.prob.reg_3","mdd.txinit.prob.prep_1","mdd.txinit.prob.prep_2","mdd.txinit.prob.prep_3"
+"a011mddtxinitprobreg11",3901,Inf,Inf,0.47,0.45,0,0,0.4367,0.3696,0.594,0,0,0
+"a012mddtxinitprobreg15",3901,Inf,Inf,0.47,0.45,0,0,0.5955,0.504,0.81,0,0,0
+"a013mddtxinitprobreg20",3901,Inf,Inf,0.47,0.45,0,0,0.794,0.672,1,0,0,0
+"a014mddtxinitprobreg100",3901,Inf,Inf,0.47,0.45,0,0,1,1,1,0,0,0
+"a015mddtxinitprobinterv10",3901,Inf,Inf,0.47,0.45,0,0,0.397,0.336,0.54,0,0,0
