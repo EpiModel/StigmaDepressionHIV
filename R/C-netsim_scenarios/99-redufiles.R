@@ -47,24 +47,23 @@ wf <- make_em_workflow("redufile", override = TRUE)
 
 
 
-#Table 2A ----------------------------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~  part 1
+#test reduce_sims function on the hpc
 
-# Process calibrations
 wf <- add_workflow_step(
   wf_summary = wf,
-  step_tmpl = step_tmpl_merge_netsim_scenarios_tibble(
-    sim_dir = "data/intermediate/scenarios_mddtbl2",
-    output_dir = fs::path("data/intermediate/scenarios_mddtbl2", "merged_tibbles"),
-    steps_to_keep = year_steps * 15, # keep the last 15 years
-    cols = dplyr::everything(),
-    n_cores = max_cores,
+  step_tmpl = step_tmpl_do_call_script(
+    r_script = "R/C-netsim_scenarios/52.1-reducesim_mddtbl2.R",
+    args = list(
+      ncores = max_cores,
+      nsteps = 52
+    ),
     setup_lines = hpc_node_setup
   ),
   sbatch_opts = list(
-    "mail-type" = "END",
     "cpus-per-task" = max_cores,
-    "time" = "02:00:00",
-    "mem-per-cpu" = "5G"
+    "time" = "08:00:00",
+    "mem-per-cpu" = "4G",
+    "mail-type" = "END"
   )
 )
+
