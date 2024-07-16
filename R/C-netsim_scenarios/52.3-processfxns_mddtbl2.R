@@ -186,7 +186,7 @@ process_fulldata <- function(file_name, ts) {
 get_cumulative_outcomes <- function(d) {
   #d <- alldata
   d %>%
-    filter(time > 5 * 52) %>%
+    filter(as.numeric(time) > (5 * 52)) %>%
     select(tbl, scenario.num, scenario.new, scenario_name, sim, time,
            incid,
            incid.mdd0, incid.mdd1,
