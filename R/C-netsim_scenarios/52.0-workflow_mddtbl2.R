@@ -47,31 +47,31 @@ wf <- make_em_workflow("mddtbl2", override = TRUE)
 
 
 
-#Table 2A ----------------------------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~  part 1
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl2A01.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl2/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
+# #Table 2A ----------------------------------------------------------------------
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 1
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl2A01.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl2/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
 
 # reduce sim files (also removes raw sim files)
 wf <- add_workflow_step(
@@ -88,7 +88,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -107,7 +107,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -153,7 +153,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -172,7 +172,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -218,7 +218,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -237,7 +237,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -283,7 +283,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -302,7 +302,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -348,7 +348,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -367,7 +367,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -413,7 +413,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -432,7 +432,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -478,7 +478,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -497,7 +497,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -543,7 +543,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -562,7 +562,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -608,7 +608,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -627,7 +627,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -674,7 +674,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -693,7 +693,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 
@@ -715,7 +715,7 @@ wf <- add_workflow_step(
     "cpus-per-task" = max_cores,
     "time" = "08:00:00",
     "mem-per-cpu" = "4G",
-    "mail-type" = "END"
+    "mail-type" = "FAIL,END"
   )
 )
 # *************************************************
