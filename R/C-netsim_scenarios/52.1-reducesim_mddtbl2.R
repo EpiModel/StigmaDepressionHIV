@@ -61,7 +61,7 @@ reduce_simfiles <- function(input_dir, output_dir, keep_last) {
 
 
 #apply reducing function
-reduce_simfiles(rawsims_dir, redusims_dir, keep_last = year_steps * 15)
+reduce_simfiles(rawsims_dir, redusims_dir, keep_last = 52 * 15)
 
 
 
