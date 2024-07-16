@@ -72,7 +72,7 @@ reduce_simfiles(rawsims_dir, redusims_dir, keep_last = 52 * 15)
 rawsims_dir <- paste0("data/intermediate/scenarios_mddtbl2/rawsims")
 
 files_to_delete1 <- dir(path = rawsims_dir, pattern = "^sim__.*rds$")
-file.remove(file.path(sims_dir, files_to_delete1))
+file.remove(file.path(rawsims_dir, files_to_delete1))
 
 
 
