@@ -16,7 +16,7 @@ suppressMessages({
 
 
 rawsims_dir <- paste0("data/intermediate/scenarios_mddtbl2/rawsims")
-redusims_dir <- paste0("data/intermediate/scenarios_mddtbl2/reducedsims")
+redusims_dir <- paste0("data/intermediate/scenarios_mddtbl2/redusims")
 
 
 
