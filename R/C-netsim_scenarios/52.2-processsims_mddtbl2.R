@@ -9,10 +9,6 @@ context <- "hpc"
 source("R/C-netsim_scenarios/52.3-processfxns_mddtbl2.R")
 
 
-sims_dir <- paste0("data/intermediate/scenarios_mddtbl2/redusims")
-save_dir <- paste0("data/intermediate/processed")
-
-
 install.packages("future.apply")
 suppressMessages({
   library("EpiModelHIV")
@@ -21,6 +17,10 @@ suppressMessages({
   library("dplyr")
   library("ggplot2")
 })
+
+
+sims_dir <- paste0("data/intermediate/scenarios_mddtbl2/redusims")
+save_dir <- paste0("data/intermediate/processed")
 
 
 
@@ -38,8 +38,8 @@ sim_files <- list.files(
 #Process each batch in parallel
 intervds <- future.apply::future_lapply(
   sim_files,
-  process_fulldata,
-  ts = 3901 - (5 * 52) + 1   #gets data from 5 years prior to intervention start
+  process_fulldata
+  #,ts = 3901 - (5 * 52) + 1   #gets data from 5 years prior to intervention start
 )
 
 
