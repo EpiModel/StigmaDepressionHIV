@@ -13,7 +13,7 @@ library(dplyr)
 
 
 hpc_context <- TRUE
-#partition <- "preemptable" #change partition in the R/hpc_configs.R script
+
 
 
 source("R/shared_variables.R", local = TRUE)
