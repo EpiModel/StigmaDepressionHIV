@@ -24,12 +24,11 @@ save_dir <- paste0("data/intermediate/processed")
 
 
 
-
 #A. Process raw sims -------------------------------------------------------------------
 #get sim files
 sim_files <- list.files(
   sims_dir,
-  pattern = "^sim__.*rds$",
+  pattern = "^df__.*rds$",
   full.names = TRUE
 )
 
