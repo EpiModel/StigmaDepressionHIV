@@ -202,25 +202,1223 @@ wf <- make_em_workflow("mddtbl3", override = TRUE)
 #     "mem-per-cpu" = "5G"
 #   )
 # )
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 4
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3A04.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # *******************clear ALL Sim files (prior to starting next interv model table run)
+# # *******************
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+# # *************************************************
+# # *************************************************
+#
+#
+#
+# #Table 3B ----------------------------------------------------------------------
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 1
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B01.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 2
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B02.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 3
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B03.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 4
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B04.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # *******************clear ALL Sim files (prior to starting next interv model table run)
+# # *******************
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+# # *************************************************
+# # *************************************************
+#
+#
+#
+#
+# #Table 3C ----------------------------------------------------------------------
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 1
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C01.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 2
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C02.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 3
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C03.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 4
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C04.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # *******************clear ALL Sim files (prior to starting next interv model table run)
+# # *******************
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+# # *************************************************
+# # *************************************************
+#
+#
+#
+# #Table 3D ----------------------------------------------------------------------
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 1
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D01.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 2
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D02.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 3
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D03.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 4
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D04.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+# # *******************clear ALL Sim files (prior to starting next interv model table run)
+# # *******************
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+# # *************************************************
+# # *************************************************
+#
+#
+#
+#
+# #Table 3E ----------------------------------------------------------------------
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 1
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E01.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 2
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E02.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 3
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E03.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+# # process output (also removes reduced sim files except 001)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
+#
+#
+#
+# # ~~~~~~~~~~~~~~~~~~~~~~  part 4
+# scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E04.csv")
+# scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
+#
+# # HIV epidemic simulation
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_netsim_scenarios(
+#     path_to_est, param, init, control,
+#     scenarios_list = scenarios_list,
+#     output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
+#     save_pattern = "all",
+#     n_rep = numsims,
+#     n_cores = max_cores,
+#     max_array_size = 500,
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "mail-type" = "FAIL,TIME_LIMIT,END",
+#     "cpus-per-task" = max_cores,
+#     "time" = "04:00:00",
+#     "mem-per-cpu" = "5G"
+#   )
+# )
+#
+# # reduce sim files (also removes raw sim files)
+# wf <- add_workflow_step(
+#   wf_summary = wf,
+#   step_tmpl = step_tmpl_do_call_script(
+#     r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
+#     args = list(
+#       ncores = max_cores,
+#       nsteps = 52
+#     ),
+#     setup_lines = hpc_node_setup
+#   ),
+#   sbatch_opts = list(
+#     "cpus-per-task" = max_cores,
+#     "time" = "08:00:00",
+#     "mem-per-cpu" = "4G",
+#     "mail-type" = "FAIL,END"
+#   )
+# )
 
 # process output (also removes reduced sim files except 001)
 wf <- add_workflow_step(
@@ -240,72 +1438,6 @@ wf <- add_workflow_step(
     "mail-type" = "FAIL,END"
   )
 )
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 4
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3A04.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
 
 
 # *******************clear ALL Sim files (prior to starting next interv model table run)
@@ -327,1119 +1459,6 @@ wf <- add_workflow_step(
 )
 # *************************************************
 # *************************************************
-
-
-
-#Table 3B ----------------------------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~  part 1
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B01.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 2
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B02.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 3
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B03.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 4
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3B04.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# *******************clear ALL Sim files (prior to starting next interv model table run)
-# *******************
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
-    args = list(
-      ncores = max_cores),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-# *************************************************
-# *************************************************
-
-
-
-
-#Table 3C ----------------------------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~  part 1
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C01.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 2
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C02.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 3
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C03.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 4
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3C04.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# *******************clear ALL Sim files (prior to starting next interv model table run)
-# *******************
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
-    args = list(
-      ncores = max_cores),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-# *************************************************
-# *************************************************
-
-
-
-#Table 3D ----------------------------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~  part 1
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D01.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 2
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D02.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 3
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D03.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 4
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3D04.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-# *******************clear ALL Sim files (prior to starting next interv model table run)
-# *******************
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.4-removefiles_AllSims_mddtbl3.R",
-    args = list(
-      ncores = max_cores),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-# *************************************************
-# *************************************************
-
-
-
-
-#Table 3E ----------------------------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~  part 1
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E01.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 2
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E02.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 3
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E03.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~  part 4
-scenarios_df <- readr::read_csv("./data/input/mddscenarios_tbl3E04.csv")
-scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
-
-# HIV epidemic simulation
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_netsim_scenarios(
-    path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
-    output_dir = "data/intermediate/scenarios_mddtbl3/rawsims",
-    save_pattern = "all",
-    n_rep = numsims,
-    n_cores = max_cores,
-    max_array_size = 500,
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "mail-type" = "FAIL,TIME_LIMIT,END",
-    "cpus-per-task" = max_cores,
-    "time" = "04:00:00",
-    "mem-per-cpu" = "5G"
-  )
-)
-
-# reduce sim files (also removes raw sim files)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.1-reducesim_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-# process output (also removes reduced sim files except 001)
-wf <- add_workflow_step(
-  wf_summary = wf,
-  step_tmpl = step_tmpl_do_call_script(
-    r_script = "R/C-netsim_scenarios/53.2-processsims_mddtbl3.R",
-    args = list(
-      ncores = max_cores,
-      nsteps = 52
-    ),
-    setup_lines = hpc_node_setup
-  ),
-  sbatch_opts = list(
-    "cpus-per-task" = max_cores,
-    "time" = "08:00:00",
-    "mem-per-cpu" = "4G",
-    "mail-type" = "FAIL,END"
-  )
-)
-
-
 
 
 # # Process output
