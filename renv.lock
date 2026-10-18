@@ -111,9 +111,9 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteUsername": "EpiModel",
-      "RemoteRepo": "EpiModelHIV-p",
-      "RemoteRef": "StigmaDepressionHIV_real",
-      "RemoteSha": "85b828419d66073864b91c1f5bc0b868b58de7a8",
+      "RemoteRepo": "EpiModelHIV",
+      "RemoteRef": "MentalHealth-BMCHSR",
+      "RemoteSha": "50bb0d4d17c1d44145f8399dc3b35a411ad04285",
       "RemoteHost": "api.github.com",
       "Remotes": "github::EpiModel/ARTnet@main, github::EpiModel/ARTnetData@main, github::EpiModel/EpiModel@main",
       "Requirements": [
@@ -128,8 +128,7 @@
         "progressr",
         "statnet.common",
         "tergm"
-      ],
-      "Hash": "8a37653bcd04b88b257b1960fd7b3fba"
+      ]
     },
     "EpiModelHPC": {
       "Package": "EpiModelHPC",
