@@ -1,3 +1,23 @@
+# Evaluating Mental Health Integration in PrEP Programs to Reduce HIV Incidence Among US Gay and Bisexual Men
+
+This repository holds the code for our network modeling study of mental health integration in PrEP programs.
+
+## Paper and engine
+
+> Onwubiko UN, Le Guillou A, Chamberlain AT, Benkeser D, Holland DP, Baral SD, Jenness SM. Evaluating mental health integration in PrEP programs to reduce HIV incidence among US gay and bisexual men: a network modeling study. _BMC Health Serv Res._ 2026; 26: 1381. [doi:10.1186/s12913-026-15074-0](https://doi.org/10.1186/s12913-026-15074-0)
+
+The EpiModelHIV engine for this paper is release [`MentalHealth-BMCHSR`](https://github.com/EpiModel/EpiModelHIV/releases/tag/MentalHealth-BMCHSR) of EpiModel/EpiModelHIV. Install it with:
+
+```r
+remotes::install_github("EpiModel/EpiModelHIV@MentalHealth-BMCHSR")
+```
+
+The setup script (`R/00-setup.R`) installs EpiModelHIV-p, which is private. Use the install line above instead.
+
+ARTnetData is a private package. It is needed only to re-estimate the networks.
+
+The rest of this README is the EpiModelHIV-Template guide this project was built from.
+
 # EpiModeHIV-Template
 
 ## Introduction
