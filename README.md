@@ -14,7 +14,7 @@ remotes::install_github("EpiModel/EpiModelHIV@MentalHealth-BMCHSR")
 
 The setup script (`R/00-setup.R`) installs EpiModelHIV-p, which is private. Use the install line above instead.
 
-ARTnetData is a private package. It is needed only to re-estimate the networks.
+ARTnetData is a private package. It is needed only to re-estimate the networks. The paper's networks were estimated with ARTnet 2.7.0, which is no longer public, so `renv.lock` installs ARTnet 2.9.3, the first version in the public [ARTnet](https://github.com/EpiModel/ARTnet) repository. Networks re-estimated with it may not match the paper's exactly.
 
 The rest of this README is the EpiModelHIV-Template guide this project was built from.
 
